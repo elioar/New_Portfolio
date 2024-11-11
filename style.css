@@ -512,19 +512,19 @@ ul {
 }
 @font-face {
   font-family: mazius;
-  src: url(Mazius-Extraitalic.121a71a7.otf);
+  src: url(font/Mazius-Extraitalic.121a71a7.otf);
 }
 @font-face {
   font-family: gilroy;
-  src: url(Gilroy-Medium.e7e7c091.ttf);
+  src: url(font/Gilroy-Medium.e7e7c091.ttf);
 }
 @font-face {
   font-family: gilroy-semi-bold;
-  src: url(Gilroy-SemiBold.f3ed44cd.ttf);
+  src: url(font/Gilroy-SemiBold.f3ed44cd.ttf);
 }
 @font-face {
   font-family: circular;
-  src: url(CircularStd-Book.4420c11b.woff2);
+  src: url(font/CircularStd-Book.4420c11b.woff2);
 }
 body {
   background-color: #151515;
