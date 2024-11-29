@@ -8,7 +8,7 @@
     <meta http-equiv=X-UA-Compatible content="IE=edge">
     <meta name=viewport content="width=device-width, initial-scale=1.0">
     <title>Elio Dev — Front-End Developer</title>
-    <link rel=icon href=#>
+    <link rel=icon href="icon/eliodevLogo.svg">
     <meta name=keywords content="web developer, ui/ux, designer, freelance, website, portfolio">
     <meta name=author content="Elio Dev">
     <meta name=description content="Portfolio of Elio Dev. A Web Developer & Visual designer from New Grecce.">
@@ -597,8 +597,9 @@
             </div>
             <div class=c-close> <img src="/icon/close.e11d51cb.svg" alt=Close> </div>
         </div>
-        <form action="#" method=POST id=contact>
-            <input type=hidden name=_redirect value=https://www.instagram.com/elio.dev>
+        <form action="https://formspree.io/f/xdkoebln" method="POST" id="contact">
+            <input type="hidden" name="_next" value="https://www.instagram.com/elio.dev">
+            <input type="hidden" name="_subject" value="New Project Inquiry">
             <div class=c-slider id=js-slider>
                 <div class="--welcome c-message"> <span>🙌</span>
                     <h1 class=js-split>Hi There!</h1>
@@ -708,6 +709,7 @@
         </div>
     </div>
     <script src=Script.js></script>
+    <script src="contactform.js"></script>
 </body>
 
 </html>
