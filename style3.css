@@ -308,7 +308,7 @@
     top: 6.5vh;
     padding: 0 5vw;
     color: #383838;
-    pointer-events: none;
+    pointer-events: auto;
   }
   nav a {
     color: inherit;
@@ -353,6 +353,78 @@
   nav.--white a:before {
     background-color: #f2f2f2;
   }
+}
+
+/* Theme-aware overrides for desktop */
+@media only screen and (min-width: 768px) {
+  html:not(.theme-light) body { background-color: #151515; }
+  html:not(.theme-light) nav { color: #fff; }
+  html:not(.theme-light) nav a { color: inherit; }
+}
+
+/* Desktop DARK theme palette fixes across sections */
+@media only screen and (min-width: 768px) {
+  /* Titles and small text */
+  html:not(.theme-light) .o-title { color: #ffffff; }
+  html:not(.theme-light) .o-title-small { color: #a2a2a2; }
+
+  /* Services section */
+  html:not(.theme-light) .c-services svg { stroke: rgba(255,255,255,0.3); }
+  html:not(.theme-light) .c-services p { color: #e5e5e5; }
+
+  /* Works section background and headings */
+  html:not(.theme-light) .c-works .c-work-bg:before { background-color: #282828; }
+  html:not(.theme-light) .c-works hr { background-color: rgba(255,255,255,0.2); }
+  html:not(.theme-light) .c-works_title h2 { color: #ffffff; }
+  html:not(.theme-light) .c-works_title div p { color: #e0e0e0; }
+  html:not(.theme-light) .c-works_title svg { stroke: rgba(255,255,255,0.3); }
+
+  /* Archive links */
+  html:not(.theme-light) .c-archive a { color: #ffffff; }
+
+  /* Featured block */
+  html:not(.theme-light) .c-featured p { color: #ffffff; }
+  html:not(.theme-light) .c-featured p:last-child { color: #a2a2a2; }
+
+  /* Honors section */
+  html:not(.theme-light) .c-honors .o-ui-arrow { stroke: rgba(255,255,255,0.3); }
+  html:not(.theme-light) .c-honors__list li { border-bottom: 1px solid rgba(255,255,255,0.2); }
+  html:not(.theme-light) .c-honors__list li a { background: #ffffff; }
+  html:not(.theme-light) .c-honors__list li a img { filter: none; }
+  html:not(.theme-light) .c-honors__list li div p { color: #ffffff; }
+
+  /* Play CTA button */
+  html:not(.theme-light) .c-play-btn { color: #ffffff; }
+
+  /* Footer */
+  html:not(.theme-light) footer { background-color: #150e31; }
+  html:not(.theme-light) .c-footer > div > h2 { color: #ffffff; }
+}
+
+/* Desktop header layout polish */
+@media only screen and (min-width: 768px) {
+  nav { display: flex; align-items: center; gap: 18px; }
+  nav .container { display: flex; align-items: center; min-width: 0; }
+  .nav-center { display: flex; align-items: center; gap: 18px; margin-left: auto; }
+  #theme_toggle { }
+  .theme-toggle { margin: 0; }
+  nav > a.o-desktop, nav > .c-nav-social, nav > #contact_btn { margin-left: 4px; }
+  /* Brand text color per theme */
+  .theme-light .text { color: #383838; text-decoration: underline; }
+  html:not(.theme-light) .text { color: #ffffff; text-decoration: none; }
+  /* Dark header backdrop */
+  html:not(.theme-light) nav { background: rgba(0,0,0,0.2); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+}
+
+/* Desktop dark theme color fixes */
+@media only screen and (min-width: 768px) {
+  html:not(.theme-light) .o-title { color: #ffffff; }
+  html:not(.theme-light) a { color: #ffffff; }
+  html:not(.theme-light) .o-title-small { color: #a2a2a2; }
+  html:not(.theme-light) .c-nav-social:hover { color: #ffffff; }
+  html:not(.theme-light) .c-nav-social__dropdown { background: #151515; border: 1px solid rgba(255,255,255,0.12); }
+  html:not(.theme-light) .c-nav-social__dropdown ul:before { background-color: rgba(255,255,255,0.2); }
+  html:not(.theme-light) .c-nav-social__dropdown li a { color: #f0f0f0; }
 }
 @media only screen and (min-width: 768px) {
   .c-nav-social {
@@ -551,6 +623,12 @@
     padding-left: 52px;
   }
 }
+@media only screen and (min-width: 768px) {
+  html:not(.theme-light) .c-title__row h2 { color: #ffffff; }
+  html:not(.theme-light) .c-t-a-info p { color: #e6e6e6; }
+  html:not(.theme-light) .c-t-a-info .o-accent { color: #52e0ed; }
+  html:not(.theme-light) .c-title__svg .c-down-btn { filter: invert(1); }
+}
 @media only screen and (min-width: 768px) and (min-width: 768px) {
   .c-t-a-info {
     padding-left: calc(11.32813vw - 35px);
@@ -606,6 +684,9 @@
     color: #414141;
     font-size: 20px;
   }
+}
+@media only screen and (min-width: 768px) {
+  html:not(.theme-light) .c-about p { color: #e0e0e0; }
 }
 @media only screen and (min-width: 768px) and (min-width: 768px) {
   .c-about p {

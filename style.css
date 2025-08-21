@@ -816,6 +816,9 @@ nav {
 .theme-light nav {
   background: rgba(255,255,255,0.4);
 }
+@media (min-width: 769px) {
+  .theme-light nav { background: rgba(255,255,255,0.75); }
+}
 
 /* Light icons fixes (optional inversion for white logos) */
 .theme-light img[alt="Github"] { filter: invert(0); }
@@ -2219,6 +2222,13 @@ footer #c-circle {
 @media (min-width: 769px) {
   .c-menu-toggle { display: none !important; }
   #fs_menu { display: none !important; }
+}
+
+/* Desktop header spacing */
+@media (min-width: 769px) {
+  nav { gap: 18px; }
+  nav > a.o-desktop, nav > .c-nav-social, nav > #contact_btn { margin-left: 8px; }
+  .theme-toggle { margin-right: 8px; }
 }
 /* Hide legacy contact link in header on mobile to keep clean menu */
 @media (max-width: 768px) {
