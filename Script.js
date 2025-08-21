@@ -10079,14 +10079,20 @@
         a = document.querySelector("#js-cursor"),
         l = document.querySelector("#js-work-bg"),
         u = document.querySelectorAll("#js-cursor > div");
-      function c(t) {
+      function c() {
         var e;
-        let i = new Date(),
-          r = i.getTime() + 6e4 * i.getTimezoneOffset(),
-          n = new Date(r + 36e5 * t);
+        let n = new Date();
         return (
           n.getHours() + ":" + ((e = n.getMinutes()) < 10 && (e = "0" + e), e)
         );
+      }
+      function g() {
+        let t = -new Date().getTimezoneOffset();
+        let e = t >= 0 ? "+" : "-";
+        let i = Math.floor(Math.abs(t) / 60);
+        let r = Math.abs(t) % 60;
+        let n = (r < 10 ? "0" : "") + r;
+        return `UTC (${e}${i}:${n})⌛`;
       }
       function h() {
         td.open(),
@@ -10118,11 +10124,15 @@
         document.querySelectorAll(".js-year").forEach((t) => {
           t.innerHTML = "\xa9" + new Date().getFullYear();
         }),
-        (document.querySelectorAll(".js-time")[0].innerHTML = c(2)),
-        (document.querySelectorAll(".js-time")[1].innerHTML = c(2)),
+        document.querySelectorAll(".js-time").forEach((t) => {
+          t.innerHTML = c();
+        }),
+        document.querySelectorAll(".js-utc").forEach((t) => {
+          t.innerHTML = g();
+        }),
         setInterval(() => {
-          let t = document.querySelectorAll(".js-time");
-          for (let e of t) e.innerHTML = c(2);
+          document.querySelectorAll(".js-time").forEach((t) => (t.innerHTML = c()));
+          document.querySelectorAll(".js-utc").forEach((t) => (t.innerHTML = g()));
         }, 6e4);
       let f,
         d = document.querySelector(".c-cate"),

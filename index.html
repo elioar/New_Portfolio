@@ -34,6 +34,11 @@
             </div>
             <div class="text">ELIODEV</div>
         </div>
+        <button id="menu_toggle" class="c-menu-toggle o-mobile" aria-label="Open menu" aria-controls="fs_menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         
         <a href=playbook.html class=o-desktop>Playbook</a>
         <div class="c-nav-social o-desktop"> <a href=#>Socials</a>
@@ -47,8 +52,43 @@
                 </ul>
             </div>
         </div> <a href=javascript:void(0) id=contact_btn data-router-disabled>
-            Discuss Project</a>
+            Message</a>
     </nav>
+    <div id="fs_menu" class="c-fs-menu" aria-hidden="true">
+        <div class="c-fs-menu__inner">
+            <div class="c-fs-menu__header">
+                <div class="container">
+                    <div>
+                        <img src="icon/eliodevLogo.svg" height="14" alt="Logo">
+                    </div>
+                    <div class="text">ELIODEV</div>
+                </div>
+                <button id="fs_menu_close" class="c-menu-close" aria-label="Close menu">
+                    <img src="icon/close.e11d51cb.svg" alt="Close">
+                </button>
+            </div>
+            <div class="c-fs-menu__content">
+                <ul class="c-fs-menu__links">
+                    <li style="--order:1"><a href="#js-work" data-menu-close>Works</a></li>
+                    <li style="--order:2"><a href="playbook.html" data-menu-close>Playbook</a></li>
+                </ul>
+                <div class="c-fs-menu__socials">
+                    <p class="o-title-small">Socials</p>
+                    <ul>
+                        <li style="--order:1"><a data-router-disabled href="#">Behance</a></li>
+                        <li style="--order:2"><a data-router-disabled href="https://www.instagram.com/elio.dev" target="_blank">Instagram</a></li>
+                        <li style="--order:3"><a data-router-disabled href="#">Twitter</a></li>
+                        <li style="--order:4"><a data-router-disabled href="#">Dribbble</a></li>
+                    </ul>
+                </div>
+                <div class="c-fs-menu__cta">
+                    <a href="javascript:void(0)" id="menu_contact" class="button button--bestia">
+                        <div class="button__bg"></div><span>Discuss Project</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="c-loader is-loading">
         <p class=js-split>Developer Portfolio<br><span class=js-year>©2024</span></p>
         <div class=c-loader__bg></div>
@@ -118,7 +158,7 @@
                                     class=line-parent><span class=line-child>Freelance Worldwid🌍</span></span> </p>
                             <p class=o-title-small> <span class=line-parent><span class=line-child>My local Time
                                         <span class=js-time>TIME</span></span></span> <span class=line-parent><span
-                                        class=line-child>UTC (+2:00)⌛</span></span> </p>
+                                        class="line-child js-utc">UTC (+2:00)⌛</span></span> </p>
                         </div>
                     </div>
                     <div class=c-title__row>
@@ -231,7 +271,7 @@
                                     class=line-parent><span class=line-child>Freelance Worldwide 🌍</span></span> </p>
                             <p class=o-title-small> <span class=line-parent><span class=line-child>My local Time
                                         <span class=js-time>TIME</span></span></span> <span class=line-parent><span
-                                        class=line-child>UTC (+2:00)⌛</span></span> </p>
+                                        class="line-child js-utc">UTC (+2:00)⌛</span></span> </p>
                         </div>
                     </div>
                 </div>
@@ -553,7 +593,7 @@
                                 </a> </div>
                             <div> <a href=javascript:void(0) id=contact_btn data-router-disabled
                                     class="button button--bestia contact_btn">
-                                    <div class=button__bg></div><span>Discuss Project</span>
+                                    <div class=button__bg></div><span>Ask Project</span>
                                 </a> </div>
                         </div>
                     </div>
@@ -733,6 +773,7 @@
         </div>
     </div>
     <script src=Script.js></script>
+    <script src="menu.js"></script>
     <script src="contactform.js"></script>
 </body>
 
