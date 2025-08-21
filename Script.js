@@ -10402,3 +10402,44 @@ const next = () => {
     (counter = (counter + 1) % phrases.length);
 };
 next();
+// Theme toggle: light/dark
+(function () {
+  const root = document.documentElement;
+  const toggleButton = document.getElementById("theme_toggle");
+  if (!toggleButton) return;
+  const STORAGE_KEY = "theme";
+  const THEME_LIGHT = "light";
+  const THEME_DARK = "dark";
+
+  function applyTheme(theme) {
+    const isLight = theme === THEME_LIGHT;
+    root.classList.toggle("theme-light", isLight);
+    toggleButton.setAttribute("aria-pressed", String(isLight));
+    toggleButton.title = isLight ? "Switch to dark" : "Switch to light";
+  }
+
+  function systemPrefersLight() {
+    return (
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-color-scheme: light)").matches
+    );
+  }
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+  const hasUserPref = saved === THEME_LIGHT || saved === THEME_DARK;
+  const initial = hasUserPref ? saved : systemPrefersLight() ? THEME_LIGHT : THEME_DARK;
+  applyTheme(initial);
+
+  toggleButton.addEventListener("click", () => {
+    const nextTheme = root.classList.contains("theme-light") ? THEME_DARK : THEME_LIGHT;
+    localStorage.setItem(STORAGE_KEY, nextTheme);
+    applyTheme(nextTheme);
+  });
+
+  if (!hasUserPref && typeof window.matchMedia === "function") {
+    const mq = window.matchMedia("(prefers-color-scheme: light)");
+    const onChange = (e) => applyTheme(e.matches ? THEME_LIGHT : THEME_DARK);
+    if (typeof mq.addEventListener === "function") mq.addEventListener("change", onChange);
+    else if (typeof mq.addListener === "function") mq.addListener(onChange);
+  }
+})();

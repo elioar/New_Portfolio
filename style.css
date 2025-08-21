@@ -564,6 +564,58 @@ hr {
   border: none;
   height: 1px;
 }
+/* Theme Toggle button */
+.theme-toggle {
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  height: 40px; /* same height as burger */
+  width: 75px;  /* wider pill */
+  padding: 0;
+  position: relative;
+  margin: 0 12px 0 20px;
+}
+.theme-toggle .toggle-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  display: inline-block;
+  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 4px 18px rgba(0,0,0,0.35);
+}
+.theme-toggle .toggle-thumb {
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff, #cfd8dc);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: left 220ms cubic-bezier(.2,.8,.2,1), background 200ms ease, box-shadow 200ms ease;
+}
+.theme-toggle .toggle-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+.theme-toggle .toggle-icon--sun { left: 10px; opacity: .9; }
+.theme-toggle .toggle-icon--moon { right: 10px; opacity: .9; }
+
+/* Light state visuals */
+.theme-light .theme-toggle .toggle-track { background: rgba(17,17,17,0.08); border-color: rgba(17,17,17,0.15); box-shadow: inset 0 2px 6px rgba(0,0,0,0.06); }
+.theme-light .theme-toggle .toggle-thumb { left: calc(100% - 34px); background: linear-gradient(180deg, #111, #333); box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
 .o-desktop {
   display: none !important;
 }
@@ -637,7 +689,17 @@ nav {
   top: 5vh;
   padding: 0 7vw;
   z-index: 10;
+  align-items: center;
 }
+nav .container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+nav .text { margin-left: 8px; }
+.theme-toggle { margin-left: 20px; }
+.c-menu-toggle { margin-left: 12px; }
 nav a {
   font-size: 12px;
   text-transform: uppercase;
@@ -716,6 +778,47 @@ nav a {
   margin: 2px 3vw 0 0;
   transform-origin: left;
 }
+
+/* Light Theme Overrides */
+.theme-light body { background-color: #f7f7f7; }
+.theme-light h1,
+.theme-light h2,
+.theme-light h3,
+.theme-light h4,
+.theme-light h5 {
+  color: #111;
+}
+.theme-light a,
+.theme-light button[type="submit"],
+.theme-light label,
+.theme-light p {
+  color: #111;
+}
+.theme-light .o-title-small { color: #555; }
+.theme-light .o-ui-arrow {
+  stroke: #111;
+}
+.theme-light nav.--white,
+.theme-light nav a {
+  color: #111;
+}
+.theme-light hr {
+  background: #e5e5e5;
+}
+.theme-light .c-visual-line {
+  background-color: #5d3fd3;
+}
+
+/* Header backdrop / readability */
+nav {
+  backdrop-filter: blur(6px);
+}
+.theme-light nav {
+  background: rgba(255,255,255,0.4);
+}
+
+/* Light icons fixes (optional inversion for white logos) */
+.theme-light img[alt="Github"] { filter: invert(0); }
 .c-about {
   display: flex;
   flex-direction: column-reverse;
@@ -835,6 +938,23 @@ nav a {
   z-index: 0;
   opacity: 1;
 }
+
+/* Light mode fixes for background overlays and sections */
+.theme-light .c-home__bg,
+.theme-light .c-play__bg { background-color: #f5f5f5; }
+.theme-light .c-works .c-work-bg:before { background-color: #efefef; }
+.theme-light .c-featured p { color: #111; }
+.theme-light .c-featured p:last-child { color: #555; }
+.theme-light .c-archive a { color: #111; }
+.theme-light .c-archive a:after,
+.theme-light .c-archive a:before { background-color: #999; }
+.theme-light .c-project-info > p,
+.theme-light .c-project-cta p,
+.theme-light .c-prj-btn { background: #111; color: #fafafa; }
+.theme-light .c-honors__list li { border-bottom-color: rgba(0,0,0,0.12); }
+.theme-light footer { background-color: #eae7ff; }
+.theme-light .c-footer, .theme-light .c-footer h2, .theme-light .c-footer__cta > div a { color: #111; }
+.theme-light .c-footer__cta > div a { border-color: #111; }
 .c-works .c-work-bg.--transparent:before {
   opacity: 0;
 }
