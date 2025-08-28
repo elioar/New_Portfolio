@@ -1,62 +1,136 @@
-;(function(){
-  function select(selector){ return document.querySelector(selector) }
-  function selectAll(selector){ return Array.prototype.slice.call(document.querySelectorAll(selector)) }
+// Fullscreen menu + Theme toggle
+(() => {
+  // Theme Toggle
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('theme_toggle');
 
-  var menu = select('#fs_menu')
-  var toggle = select('#menu_toggle')
-  var closeBtn = select('#fs_menu_close')
-  var contactBtn = select('#menu_contact')
-  var overlay = select('#js-overlay')
-  var contact = select('#js-contact')
-
-  if(!menu || !toggle) return
-
-  function openMenu(){
-    menu.classList.add('--open')
-    menu.setAttribute('aria-hidden','false')
-    toggle.setAttribute('aria-expanded','true')
-    document.documentElement.style.overflow='hidden'
-  }
-  function closeMenu(){
-    menu.classList.remove('--open')
-    menu.setAttribute('aria-hidden','true')
-    toggle.setAttribute('aria-expanded','false')
-    document.documentElement.style.overflow=''
+  function getInitialTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    return prefersLight ? 'light' : 'dark';
   }
 
-  toggle.addEventListener('click', function(){
-    var expanded = toggle.getAttribute('aria-expanded') === 'true'
-    expanded ? closeMenu() : openMenu()
-  })
+  function applyTheme(theme) {
+    const isLight = theme === 'light';
+    html.classList.toggle('theme-light', isLight);
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      themeToggle.title = isLight ? 'Switch to dark' : 'Switch to light';
+    }
+  }
 
-  if(closeBtn){ closeBtn.addEventListener('click', closeMenu) }
+  const initialTheme = getInitialTheme();
+  applyTheme(initialTheme);
 
-  // Close on background tap (outside inner content)
-  menu.addEventListener('click', function(e){
-    if(e.target === menu) closeMenu()
-  })
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = html.classList.contains('theme-light') ? 'dark' : 'light';
+      applyTheme(nextTheme);
+      localStorage.setItem('theme', nextTheme);
+    });
+  }
 
-  // Close when pressing ESC
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closeMenu()
-  })
+  // Fullscreen Menu
+  const menuToggle = document.getElementById('menu_toggle');
+  const fsMenu = document.getElementById('fs_menu');
+  const menuClose = document.getElementById('fs_menu_close');
+  const menuLinks = document.querySelectorAll('[data-menu-close]');
 
-  // Close menu on link click and keep smooth UX
-  selectAll('[data-menu-close]').forEach(function(link){
-    link.addEventListener('click', function(){
-      closeMenu()
-    })
-  })
+  function setMenuOpen(open) {
+    if (!fsMenu || !menuToggle) return;
+    menuToggle.setAttribute('aria-expanded', String(open));
+    fsMenu.setAttribute('aria-hidden', String(!open));
+    fsMenu.classList.toggle('--open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
 
-  // Wire Discuss Project inside the menu to existing contact overlay
-  if(contactBtn && overlay && contact){
-    contactBtn.addEventListener('click', function(){
-      closeMenu()
-      overlay.classList.add('--visible')
-      contact.classList.add('--visible')
-    })
+  if (menuToggle && fsMenu) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+      setMenuOpen(!isOpen);
+    });
+  }
+
+  if (menuClose) menuClose.addEventListener('click', () => setMenuOpen(false));
+  menuLinks.forEach((link) => link.addEventListener('click', () => setMenuOpen(false)));
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fsMenu && fsMenu.classList.contains('--open')) setMenuOpen(false);
+  });
+
+  // Click outside inner to close (optional UX)
+  if (fsMenu) {
+    fsMenu.addEventListener('click', (e) => {
+      const inner = fsMenu.querySelector('.c-fs-menu__inner');
+      if (inner && !inner.contains(e.target)) setMenuOpen(false);
+    });
   }
 })();
 
+// Theme Toggle
+const themeToggle = document.getElementById('theme_toggle');
+const html = document.documentElement;
 
+function getInitialTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    return prefersLight ? 'light' : 'dark';
+}
 
+function applyTheme(theme) {
+    const isLight = theme === 'light';
+    html.classList.toggle('theme-light', isLight);
+    if (themeToggle) {
+        themeToggle.setAttribute('aria-pressed', String(isLight));
+        themeToggle.title = isLight ? 'Switch to dark' : 'Switch to light';
+    }
+}
+
+const initialTheme = getInitialTheme();
+applyTheme(initialTheme);
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isNowLight = !html.classList.contains('theme-light');
+        const nextTheme = isNowLight ? 'light' : 'dark';
+        applyTheme(nextTheme);
+        localStorage.setItem('theme', nextTheme);
+    });
+}
+
+// Mobile Menu
+const menuToggle = document.getElementById('menu_toggle');
+const menuClose = document.getElementById('fs_menu_close');
+const fsMenu = document.getElementById('fs_menu');
+const menuLinks = document.querySelectorAll('[data-menu-close]');
+
+function toggleMenu(show) {
+    menuToggle.setAttribute('aria-expanded', show);
+    fsMenu.setAttribute('aria-hidden', !show);
+    if (show) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+menuToggle.addEventListener('click', () => {
+    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    toggleMenu(!isExpanded);
+});
+
+menuClose.addEventListener('click', () => toggleMenu(false));
+
+menuLinks.forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+});
+
+// Close menu on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fsMenu.getAttribute('aria-hidden') === 'false') {
+        toggleMenu(false);
+    }
+});
