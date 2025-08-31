@@ -724,6 +724,24 @@ nav {
     left: auto !important;
   }
   
+  /* Mobile logo container styling */
+  nav .logo-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  nav .logo-container:hover {
+    transform: scale(1.02);
+  }
+  
+  nav .logo-container:before,
+  nav .logo-container:after {
+    display: none !important;
+  }
+  
   nav .nav-center {
     display: none; /* Hide desktop nav on mobile */
   }
@@ -863,7 +881,7 @@ nav a {
   display: flex;
   flex-direction: column-reverse;
   margin-bottom: 15vh;
-  margin-top: 15vh;
+  margin-top: 16vh;
 }
 .c-about > div:first-child {
   margin-top: 20vh;

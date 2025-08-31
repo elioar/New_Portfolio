@@ -434,7 +434,26 @@
     display: none;
   }
   
-  /* Logo container - positioned on the left */
+  /* Logo container - positioned on the left, clickable */
+  nav .logo-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+    flex: 0 0 auto;
+    z-index: 1;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  nav .logo-container:hover {
+    transform: translateY(-1px);
+  }
+  
+  nav .logo-container:before,
+  nav .logo-container:after {
+    display: none !important;
+  }
+  
   nav .container { 
     display: flex; 
     align-items: center; 
