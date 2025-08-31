@@ -1,4 +1,11 @@
+/* ================================================
+   DESKTOP ENHANCEMENTS (style3.css)
+   This file contains desktop-specific improvements
+   and overrides for the main style.css file
+   ================================================ */
+
 @media only screen and (min-width: 768px) {
+  /* Custom scrollbar for desktop */
   .c-scrollbar {
     z-index: 50;
   }
@@ -6,6 +13,8 @@
     background-color: #14cf93;
     opacity: 1;
   }
+  
+  /* Desktop background - overrides mobile dark theme */
   body {
     background-color: #fcfaf8;
   }
@@ -401,19 +410,262 @@
   html:not(.theme-light) .c-footer > div > h2 { color: #ffffff; }
 }
 
-/* Desktop header layout polish */
+/* Desktop header layout - clean, no background */
 @media only screen and (min-width: 768px) {
-  nav { display: flex; align-items: center; gap: 18px; }
-  nav .container { display: flex; align-items: center; min-width: 0; }
-  .nav-center { display: flex; align-items: center; gap: 18px; margin-left: auto; }
-  #theme_toggle { }
-  .theme-toggle { margin: 0; }
-  nav > a.o-desktop, nav > .c-nav-social, nav > #contact_btn { margin-left: 4px; }
+  nav { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; /* Space between left, center, right */
+    gap: 0;
+    background: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 5vw;
+    border-radius: 0;
+    margin: 0;
+    position: relative;
+    overflow: visible;
+    width: 100%;
+  }
+  
+  /* Remove all background pseudo-elements */
+  nav::before,
+  nav::after {
+    display: none;
+  }
+  
+  /* Logo container - positioned on the left */
+  nav .container { 
+    display: flex; 
+    align-items: center; 
+    min-width: 0; 
+    z-index: 1;
+    flex: 0 0 auto;
+  }
+  
+  /* Center navigation container */
+  .nav-center { 
+    display: flex; 
+    align-items: center; 
+    gap: 32px; 
+    z-index: 1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Right side container with social icons, message button and theme toggle */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 1;
+    flex: 0 0 auto;
+  }
+  
+  /* Social icons container */
+  .social-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  /* Individual social icon styling - just icons, no backgrounds, bigger size */
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+  
+  .social-icon:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    background: none !important;
+  }
+  
+  /* Remove any pseudo-elements that might create lines or backgrounds */
+  .social-icon:before,
+  .social-icon:after {
+    display: none !important;
+  }
+  
+  .social-icon img {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Theme-specific social icon filters - more visible */
+  .theme-light .social-icon img {
+    filter: invert(0.15) brightness(0.4);
+  }
+  
+  html:not(.theme-light) .social-icon img {
+    filter: invert(1) brightness(1);
+  }
+  
+  .theme-light .social-icon:hover img {
+    filter: invert(0) brightness(0.7);
+  }
+  
+  html:not(.theme-light) .social-icon:hover img {
+    filter: invert(1) brightness(1.3);
+  }
+  
+  /* Special handling for GitHub icon (PNG) - more visible */
+  .theme-light .social-icon img[alt="GitHub"] {
+    filter: invert(0.9) brightness(0.4);
+  }
+  
+  html:not(.theme-light) .social-icon img[alt="GitHub"] {
+    filter: invert(1) brightness(1);
+  }
+  
+  .theme-light .social-icon:hover img[alt="GitHub"] {
+    filter: invert(0.7) brightness(0.6);
+  }
+  
+  html:not(.theme-light) .social-icon:hover img[alt="GitHub"] {
+    filter: invert(1) brightness(1.4);
+  }
+  
+  /* Message button styling in nav-right - no underlines */
+  .nav-right .message-button {
+    background: rgba(93, 63, 211, 0.1);
+    border: 1px solid rgba(93, 63, 211, 0.2);
+    color: #5d3fd3 !important;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  
+  .nav-right .message-button:hover {
+    background: rgba(93, 63, 211, 0.15);
+    border-color: rgba(93, 63, 211, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  /* Remove any pseudo-elements that might create lines for message button */
+  .nav-right .message-button:before,
+  .nav-right .message-button:after {
+    display: none !important;
+  }
+  
+  /* Override any inherited nav link styling for social icons and message button */
+  .nav-right a:before,
+  .nav-right a:after {
+    display: none !important;
+    content: none !important;
+  }
+  
+  .nav-right a {
+    text-decoration: none !important;
+    position: relative;
+  }
+  
+  /* Specifically target social icons and message button to remove lines */
+  .social-icon:before,
+  .social-icon:after,
+  .message-button:before, 
+  .message-button:after,
+  .nav-right .social-icon:before,
+  .nav-right .social-icon:after,
+  .nav-right .message-button:before,
+  .nav-right .message-button:after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+  
+  /* Theme toggle positioning */
+  .theme-toggle { 
+    margin: 0; 
+    z-index: 1; 
+  }
+  
+  /* Centered navigation links styling */
+  nav .nav-center a {
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  
+  nav .nav-center a:hover {
+    transform: translateY(-1px);
+  }
+  
   /* Brand text color per theme */
-  .theme-light .text { color: #383838; text-decoration: underline; }
-  html:not(.theme-light) .text { color: #ffffff; text-decoration: none; }
-  /* Dark header backdrop */
-  html:not(.theme-light) nav { background: rgba(0,0,0,0.2); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .theme-light .text { 
+    color: #383838; 
+    text-decoration: none;
+    font-weight: 600;
+  }
+  html:not(.theme-light) .text { 
+    color: #ffffff; 
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  /* Navigation link colors per theme */
+  .theme-light nav .nav-center a {
+    color: #383838;
+  }
+  
+  html:not(.theme-light) nav .nav-center a {
+    color: #ffffff;
+  }
+  
+
+}
+
+/* Responsive adjustments for smaller desktop screens */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  nav {
+    padding: 0 3vw;
+  }
+  
+  .nav-center {
+    gap: 24px;
+  }
+  
+  .social-icons {
+    gap: 12px;
+  }
+  
+  .nav-right {
+    gap: 16px;
+  }
+  
+  .social-icon {
+    padding: 4px;
+  }
+  
+  .social-icon img {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .nav-right .message-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
 }
 
 /* Desktop dark theme color fixes */
@@ -1330,7 +1582,7 @@
 
 @media only screen and (min-width: 768px) {
     .text {
-      width: 150px; /* Adjust based on the longest text width */
+      width: 250px; /* Adjust based on the longest text width */
       height: 20px; /* Adjust to fit your text height */
       color: #000;
       font-size: 14px;

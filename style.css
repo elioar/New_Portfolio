@@ -702,6 +702,41 @@ nav {
   z-index: 10;
   align-items: center;
 }
+
+/* Mobile nav styles - keep full width on mobile */
+@media (max-width: 767px) {
+  nav {
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    padding: 10px 14px;
+    border-radius: 16px;
+    background: rgba(21, 21, 21, 0.7);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    justify-content: space-between; /* Keep mobile layout */
+  }
+  
+  /* Ensure mobile navigation structure remains intact */
+  nav .container {
+    position: static !important;
+    left: auto !important;
+  }
+  
+  nav .nav-center {
+    display: none; /* Hide desktop nav on mobile */
+  }
+  
+  nav .nav-right {
+    display: none; /* Hide social icons and desktop theme toggle on mobile */
+  }
+  
+  #theme_toggle {
+    position: static !important;
+    right: auto !important;
+  }
+}
 nav .container {
   display: flex;
   align-items: center;
@@ -820,16 +855,7 @@ nav a {
   background-color: #5d3fd3;
 }
 
-/* Header backdrop / readability */
-nav {
-  backdrop-filter: blur(6px);
-}
-.theme-light nav {
-  background: rgba(255,255,255,0.4);
-}
-@media (min-width: 769px) {
-  .theme-light nav { background: rgba(255,255,255,0.75); }
-}
+/* Header backdrop / readability - removed to prevent conflicts with new desktop header design */
 
 /* Light icons fixes (optional inversion for white logos) */
 .theme-light img[alt="Github"] { filter: invert(0); }
