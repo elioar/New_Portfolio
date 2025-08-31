@@ -863,6 +863,7 @@ nav a {
   display: flex;
   flex-direction: column-reverse;
   margin-bottom: 15vh;
+  margin-top: 15vh;
 }
 .c-about > div:first-child {
   margin-top: 20vh;

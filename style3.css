@@ -1809,7 +1809,7 @@ html:not(.theme-light) .toggle-icon--dark {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .c-title__svg {
