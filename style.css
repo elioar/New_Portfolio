@@ -2245,3 +2245,33 @@ footer #c-circle {
 @media (max-width: 768px) {
   nav #contact_btn { display: none !important; }
 }
+
+/* Desktop visibility toggles */
+@media (min-width: 769px) {
+  .o-desktop { display: inherit !important; }
+  .o-mobile { display: none !important; }
+  .c-t-a-info--desktop { display: flex; }
+}
+
+/* Desktop layout for projects, about, honors */
+@media (min-width: 1024px) {
+  /* Projects grid */
+  .c-project__row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .c-project__row .u-width-1 { grid-column: span 7; }
+  .c-project__row .u-width-2 { grid-column: span 5; }
+  .c-project__row .u-width-3 { grid-column: span 12; }
+  .c-project__row .u-width-4, .c-project__row .u-width-5 { grid-column: span 6; }
+
+  /* About split */
+  .c-about { flex-direction: row; align-items: center; gap: 6vw; }
+  .c-about > div:first-child { margin-top: 0; }
+  .c-about > div:first-child a { margin-left: 0; }
+  .c-about p { font-size: 38px; }
+  .c-about-cards { flex-basis: 50%; }
+
+  /* Honors split */
+  .c-honors__wrap { flex-direction: row; align-items: flex-start; gap: 6vw; }
+  .c-honors__wrap > div:first-child { width: 40%; padding-top: 0; text-align: left; }
+  .c-honors__wrap > div:first-child svg { transform: rotate(0deg); width: 8vw; }
+  .c-honors__wrap > .c-honors__list, .c-honors__list { width: 60%; }
+}
