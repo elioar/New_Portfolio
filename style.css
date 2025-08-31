@@ -2171,7 +2171,7 @@ footer #c-circle {
     inset: 0;
     display: flex;
     flex-direction: column;
-    padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px 16px;
+    padding: calc(env(safe-area-inset-top, 0px) + 25px) 30px 30px;
     overflow: hidden;
   }
   .c-fs-menu__inner:before {
