@@ -2208,7 +2208,7 @@ footer #c-circle {
     align-items: flex-start;
     justify-content: space-between;
     height: 100%;
-    padding: 10vh 2px 4vh;
+    padding: 10vh 2px 6vh;
     transform: translateY(10px);
     opacity: 0.98;
   }
