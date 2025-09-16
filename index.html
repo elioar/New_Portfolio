@@ -24,6 +24,526 @@
         <link rel=stylesheet href=style.css>
         <link rel=stylesheet href=style3.css>
         <link rel=icon href="icon/eliodevLogo.svg">
+        
+        <style>
+            @font-face {
+                font-family: 'Gilroy-Medium';
+                src: url('font/Gilroy-Medium.e7e7c091.ttf') format('truetype');
+            }
+
+            @font-face {
+                font-family: 'Gilroy-SemiBold';
+                src: url('font/Gilroy-SemiBold.f3ed44cd.ttf') format('truetype');
+            }
+
+            @font-face {
+                font-family: 'Mazius-Extraitalic';
+                src: url('font/Mazius-Extraitalic.121a71a7.otf') format('opentype');
+            }
+
+            /* Import Inter font for modern look */
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+
+            /* Interactive Showcase Styles */
+            .interactive-showcase {
+                margin-top: 0;
+                padding: 8rem 4rem 4rem 4rem;
+                background: transparent;
+            }
+
+            .interactive-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+                gap: 2.5rem;
+                margin-top: 2rem;
+            }
+
+            @media (max-width: 1024px) {
+                .interactive-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                    gap: 2rem;
+                }
+            }
+
+            @media (max-width: 600px) {
+                .interactive-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+            }
+
+            .interactive-card {
+                --start: 0;
+                position: relative;
+                border-radius: 16px;
+                cursor: pointer;
+                transition: all 0.6s cubic-bezier(0, 0.89, 0.41, 1);
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                display: flex;
+                flex-direction: row;
+                min-height: 280px;
+                backdrop-filter: blur(10px);
+            }
+
+            /* Light theme card styling */
+            .theme-light .interactive-card {
+                background: rgba(255, 255, 255, 0.8);
+                border: 1px solid rgba(0, 0, 0, 0.08);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            }
+
+            /* Dark theme card styling */
+            html:not(.theme-light) .interactive-card {
+                background: rgba(21, 21, 21, 0.6);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            /* Light theme text colors */
+            .theme-light .interactive-title {
+                color: #383838;
+            }
+
+            .theme-light .interactive-description {
+                color: rgba(56, 56, 56, 0.7);
+            }
+
+            .theme-light .interactive-stats .stat-value {
+                color: #383838;
+            }
+
+            /* Dark theme text colors */
+            html:not(.theme-light) .interactive-title {
+                color: #ffffff;
+            }
+
+            html:not(.theme-light) .interactive-description {
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            html:not(.theme-light) .interactive-stats .stat-value {
+                color: #ffffff;
+            }
+
+            .interactive-card::before {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 100%;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 16px;
+                border: 1px solid transparent;
+                background: linear-gradient(135deg, #5d3fd3, #b388ff, #5d3fd3);
+                background-attachment: fixed;
+                mask: linear-gradient(#0000, #0000), conic-gradient(from calc((var(--start, 0) - (20 * 1.1)) * 1deg), #ffffff1f 0deg, white, #ffffff00 100deg);
+                mask-composite: intersect;
+                mask-clip: padding-box, border-box;
+                opacity: 0;
+                transition: 0.6s cubic-bezier(0, 0.89, 0.41, 1);
+                z-index: -1;
+            }
+
+            .interactive-glow {
+                pointer-events: none;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                filter: blur(14px);
+                z-index: -2;
+            }
+
+            .interactive-glow::before {
+                position: absolute;
+                content: "";
+                width: 98%;
+                height: 98%;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 16px;
+                border: 8px solid transparent;
+                background: linear-gradient(135deg, #5d3fd3, #b388ff, #5d3fd3);
+                background-attachment: fixed;
+                mask: linear-gradient(#0000, #0000), conic-gradient(from calc((var(--start, 0) - (20 * 1.1)) * 1deg), #000 0deg, #ffffff, rgba(0, 0, 0, 0) 100deg);
+                mask-composite: intersect;
+                mask-clip: padding-box, border-box;
+                opacity: 0;
+                transition: 0.8s cubic-bezier(0, 0.89, 0.41, 1);
+            }
+
+            .interactive-card:hover > .interactive-glow::before {
+                opacity: 1;
+            }
+
+            .interactive-card:hover::before {
+                opacity: 0.6;
+            }
+
+            .interactive-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(93, 63, 211, 0.15);
+            }
+
+            .interactive-image {
+                width: 45%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.6s cubic-bezier(0, 0.89, 0.41, 1);
+                border-radius: 16px 0 0 16px;
+            }
+
+            .interactive-content {
+                padding: 1.75rem;
+                background: transparent;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                border-radius: 0 16px 16px 0;
+            }
+
+            .interactive-stats {
+                display: flex;
+                gap: 1.25rem;
+                margin-bottom: 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            .interactive-stats .stat {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #5d3fd3;
+                padding: 0.35rem 0.75rem;
+                background: rgba(93, 63, 211, 0.08);
+                border: 1px solid rgba(93, 63, 211, 0.15);
+                border-radius: 200px;
+                font-family: gilroy, sans-serif;
+                font-weight: 500;
+                text-transform: none;
+            }
+
+            .interactive-stats .stat-value {
+                color: #ffffff;
+                font-family: gilroy-semi-bold, sans-serif;
+                font-size: 0.95rem;
+                font-weight: 600;
+                text-transform: none;
+            }
+
+            .interactive-title {
+                font-family: gilroy-semi-bold, sans-serif;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                color: #ffffff;
+                letter-spacing: -0.02em;
+                font-weight: 600;
+                text-transform: none;
+            }
+
+            .interactive-description {
+                font-size: 1rem;
+                color: rgba(255, 255, 255, 0.7);
+                margin-bottom: 1.5rem;
+                line-height: 1.6;
+                max-width: 90%;
+                font-family: gilroy, sans-serif;
+                font-weight: 400;
+                text-transform: none;
+            }
+
+            .interactive-tags {
+                display: flex;
+                gap: 0.85rem;
+                flex-wrap: wrap;
+                margin-bottom: 1rem;
+            }
+
+            .interactive-tags .tech-item {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                padding: 0.5rem 0.85rem;
+                background: rgba(93, 63, 211, 0.05);
+                border: 1px solid rgba(93, 63, 211, 0.12);
+                border-radius: 200px;
+                font-size: 0.85rem;
+                color: #5d3fd3;
+                font-family: gilroy, sans-serif;
+                font-weight: 500;
+                text-transform: none;
+                transition: all 0.6s cubic-bezier(0, 0.89, 0.41, 1);
+                backdrop-filter: blur(8px);
+            }
+
+            .interactive-tags .tech-icon {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+                transition: transform 0.3s ease;
+            }
+
+            .interactive-tags .tech-item:hover {
+                background: rgba(93, 63, 211, 0.12);
+                border-color: rgba(93, 63, 211, 0.25);
+                transform: translateY(-2px);
+            }
+
+            .interactive-tags .tech-item:hover .tech-icon {
+                transform: scale(1.1);
+            }
+
+            .interactive-actions {
+                display: flex;
+                gap: 1rem;
+                padding-top: 1.5rem;
+                border-top: 1px solid rgba(93, 63, 211, 0.1);
+            }
+
+            .interactive-actions .action-btn {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.75rem 1.25rem;
+                border-radius: 200px;
+                text-decoration: none;
+                font-family: gilroy-semi-bold, sans-serif;
+                font-size: 0.9rem;
+                font-weight: 500;
+                text-transform: none;
+                transition: all 0.6s cubic-bezier(0, 0.89, 0.41, 1);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .interactive-actions .github-btn {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: #ffffff;
+            }
+
+            .interactive-actions .github-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            }
+
+            .interactive-actions .view-btn {
+                background: linear-gradient(135deg, #5d3fd3, #b388ff);
+                border: 1px solid #5d3fd3;
+                color: white;
+                flex: 1;
+                justify-content: center;
+            }
+
+            .interactive-actions .view-btn:hover {
+                background: linear-gradient(135deg, #b388ff, #5d3fd3);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(93, 63, 211, 0.3);
+            }
+
+            .interactive-actions .view-btn svg {
+                transition: transform 0.3s ease;
+            }
+
+            .interactive-actions .view-btn:hover svg {
+                transform: translateX(2px) translateY(-2px);
+            }
+
+            @media (max-width: 768px) {
+                .interactive-showcase {
+                    padding: 4rem 1rem 2rem 1rem;
+                }
+                
+                .interactive-grid {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                    margin-top: 1.5rem;
+                }
+
+                .interactive-card {
+                    flex-direction: column;
+                    min-height: auto;
+                    border-radius: 16px;
+                }
+
+                /* Disable glow effects on mobile */
+                .interactive-card::before {
+                    display: none;
+                }
+
+                .interactive-glow {
+                    display: none;
+                }
+
+                .interactive-card:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 10px 20px rgba(93, 63, 211, 0.1);
+                }
+
+                .interactive-image {
+                    width: 100%;
+                    height: 220px;
+                    border-radius: 16px 16px 0 0;
+                }
+
+                .interactive-content {
+                    padding: 1.5rem;
+                    border-radius: 0 0 16px 16px;
+                }
+
+                .interactive-stats {
+                    gap: 0.75rem;
+                    margin-bottom: 1.25rem;
+                    flex-wrap: wrap;
+                }
+
+                .interactive-stats .stat {
+                    padding: 0.4rem 0.75rem;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                }
+
+                .interactive-stats .stat-value {
+                    font-size: 0.9rem;
+                    font-weight: 700;
+                }
+
+                .interactive-title {
+                    font-size: 1.3rem;
+                    margin-bottom: 1rem;
+                    font-weight: 700;
+                }
+
+                .interactive-description {
+                    font-size: 0.95rem;
+                    margin-bottom: 1.25rem;
+                    line-height: 1.6;
+                    font-weight: 500;
+                }
+
+                .interactive-tags {
+                    gap: 0.6rem;
+                    margin-bottom: 1rem;
+                }
+
+                .interactive-tags .tech-item {
+                    padding: 0.5rem 0.8rem;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                }
+
+                .interactive-tags .tech-icon {
+                    width: 18px;
+                    height: 18px;
+                }
+
+                .interactive-actions {
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    padding-top: 1.25rem;
+                }
+
+                .interactive-actions .action-btn {
+                    padding: 0.75rem 1.25rem;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    justify-content: center;
+                }
+
+                .interactive-actions .view-btn {
+                    flex: none;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .interactive-showcase {
+                    padding: 3rem 0.75rem 1.5rem 0.75rem;
+                }
+                
+                .interactive-grid {
+                    gap: 1.75rem;
+                    margin-top: 1.25rem;
+                }
+
+                .interactive-card {
+                    border-radius: 14px;
+                }
+
+                .interactive-image {
+                    height: 200px;
+                    border-radius: 14px 14px 0 0;
+                }
+
+                .interactive-content {
+                    padding: 1.25rem;
+                    border-radius: 0 0 14px 14px;
+                }
+
+                .interactive-stats {
+                    gap: 0.6rem;
+                    margin-bottom: 1rem;
+                }
+
+                .interactive-stats .stat {
+                    padding: 0.35rem 0.6rem;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                }
+
+                .interactive-stats .stat-value {
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                }
+
+                .interactive-title {
+                    font-size: 1.2rem;
+                    margin-bottom: 0.75rem;
+                    font-weight: 700;
+                }
+
+                .interactive-description {
+                    font-size: 0.9rem;
+                    margin-bottom: 1rem;
+                    font-weight: 500;
+                }
+
+                .interactive-tags {
+                    gap: 0.5rem;
+                    margin-bottom: 0.75rem;
+                }
+
+                .interactive-tags .tech-item {
+                    padding: 0.4rem 0.7rem;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                }
+
+                .interactive-tags .tech-icon {
+                    width: 16px;
+                    height: 16px;
+                }
+
+                .interactive-actions {
+                    gap: 0.6rem;
+                    padding-top: 1rem;
+                }
+
+                .interactive-actions .action-btn {
+                    padding: 0.65rem 1rem;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                }
+            }
+
+        </style>
 </head>
 
 <body>
@@ -161,6 +681,37 @@
                                 src=img/mut2.06596ac6.png loading=lazy alt=muteza> <img src=img/mut3.341ab85c.png
                                 loading=lazy alt=muteza> <img src=img/mut4.a21e1ca0.png loading=lazy alt=muteza>
                             <img src=img/mut5.cccd00fc.png loading=lazy alt=muteza>
+                        </div>
+                    </div>
+                    <div>
+                        <p>JobFinder APP</p>
+                        <div data-animate=true> <img src=img/dis1.a68a59af.png loading=lazy alt=display> <img
+                                src=img/dis2.ab5a2a48.png loading=lazy alt=display> <img src=img/dis3.959a693c.png
+                                loading=lazy alt=display> <img src=img/dis4.652c25b1.png loading=lazy alt=display>
+                            <img src=img/dis5.84416503.png loading=lazy alt=display>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Keep My Note</p>
+                        <div data-animate=true> <img src=img/keep1.webp loading=lazy alt="Keep My Note"> <img
+                                src=img/keep2.webp loading=lazy alt="Keep My Note"> <img src=img/keep3.webp
+                                loading=lazy alt="Keep My Note"> <img src=img/keep4.webp loading=lazy
+                                alt="Keep My Note"> <img src=img/keep5.webp loading=lazy alt="Keep My Note"> </div>
+                    </div>
+                    <div>
+                        <p>Barukoni.com</p>
+                        <div data-animate=true style="transform: scale(0.6);"> <img src=img/aei1.addc8e76.png loading=lazy alt=Aeizei> <img
+                                src=img/aei2.f4af4eea.png loading=lazy alt=Aeizei> <img src=img/aei3.9946c78c.png
+                                loading=lazy alt=Aeizei> <img src=img/aei4.3c14b4c9.png loading=lazy alt=Aeizei>
+                            <img src=img/aei5.5e3b3f8d.png loading=lazy alt=Aeizei>
+                        </div>
+                    </div>
+                    <div>
+                        <p>EiXai</p>
+                        <div data-animate=true> <img src=img/qua1.dea54829.png loading=lazy alt=quaive> <img
+                                src=img/qua2.1f02501c.png loading=lazy alt=quaive> <img src=img/qua3.53626716.png
+                                loading=lazy alt=quaive> <img src=img/qua4.6f17bba7.png loading=lazy alt=quaive>
+                            <img src=img/qua5.f7ab19d7.png loading=lazy alt=quaive>
                         </div>
                     </div>
                 </div>
@@ -336,146 +887,188 @@
                             </path>
                         </svg>
                     </div>
-                    <div class=c-projects__wrap>
-                        <div class=c-project__row>
-                            <div class="c-project js-project u-width-1"> <a href="#" target=_blank>
-                                    <img data-scroll data-scroll-speed=-1 src="img/keepmynote.webp" alt="Project: Keep My Note">
-                                    <div class=c-project-info>
-                                        <p>YEAR: 2025</p>
-                                        <p>ROLE: React Native - Mobile & Web App</p>
-                                        <div class=c-project-cta>
-                                            <p>Keep My <span class=o-accent>N</span>ote</p>
-                                            <div class="c-prj-btn js-tab-arrow"> <svg id=arrow
-                                                    xmlns=http://www.w3.org/2000/svg viewbox="0 0 9.56 9.56">
-                                                    <line id=line1 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <line id=line2 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <polyline id=arrow-head-1 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                    <polyline id=arrow-head-2 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                </svg> </div>
-                                        </div>
+                    <!-- Interactive Showcase Grid -->
+                    <div class="interactive-showcase">
+                        <div class="interactive-grid">
+                        <!-- JobFinder -->
+                        <div class="interactive-card" data-cursor="jobfinder">
+                            <div class="interactive-glow"></div>
+                            <img src="img/JobFinder.webp" alt="JobFinder" class="interactive-image">
+                            <div class="interactive-content">
+                                <div class="interactive-stats">
+                                    <div class="stat">
+                                        Performance <span class="stat-value">98%</span>
                                     </div>
-                                </a> </div>
-                            <div class="c-project js-project u-width-2"> <a href="https://elio-ai-saas.vercel.app" target=_blank> <img data-scroll
-                                        data-scroll-speed=-1 src="img/eixai.webp" alt="Project: EixAi">
-                                    <div class=c-project-info>
-                                        <p>YEAR: 2022</p>
-                                        <p>ROLE: AI SAAS - FULL STACK DEV</p>
-                                        <div class=c-project-cta>
-                                            <p>Ei<span class=o-accent>x</span>Ai</p>
-                                            <div class="c-prj-btn js-tab-arrow"> <svg id=arrow
-                                                    xmlns=http://www.w3.org/2000/svg viewbox="0 0 9.56 9.56">
-                                                    <line id=line1 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <line id=line2 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <polyline id=arrow-head-1 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                    <polyline id=arrow-head-2 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                </svg> </div>
-                                        </div>
+                                    <div class="stat">
+                                        UI Score <span class="stat-value">95%</span>
                                     </div>
-                                </a> </div>
+                                </div>
+                                <h3 class="interactive-title">JobFinder</h3>
+                                <p class="interactive-description">A modern job search mobile application with AI-powered job matching and real-time notifications.</p>
+                                <div class="interactive-tags">
+                                    <div class="tech-item">
+                                        <img src="icon/3d-react-native.webp" alt="React Native" class="tech-icon">
+                                        <span>React Native</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <img src="icon/3d-framer.webp" alt="Expo" class="tech-icon">
+                                        <span>Expo</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <img src="icon/3d-typescript.webp" alt="TypeScript" class="tech-icon">
+                                        <span>TypeScript</span>
+                                    </div>
+                                </div>
+                                <div class="interactive-actions">
+                                    <a href="https://github.com/elioar" target="_blank" class="action-btn github-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                        </svg>
+                                        <span>GitHub</span>
+                                    </a>
+                                    <a href="#" class="action-btn view-btn">
+                                        <span>View Project</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class=c-project__row>
-                            <div class="c-project js-project u-width-3"> <a href=https://barukoni.com target=_blank> <img data-scroll
-                                        data-scroll-speed=-1 src="img/barukoni-mockup.webp" alt="Project: Barukoni">
-                                    <div class=c-project-info>
-                                        <p>YEAR: 2024</p>
-                                        <p>ROLE: UI/UX AND FRONT-END DEV</p>
-                                        <div class=c-project-cta>
-                                            <p>Bar<span class=o-accent>u</span>koni</p>
-                                            <div class="c-prj-btn js-tab-arrow"> <svg id=arrow
-                                                    xmlns=http://www.w3.org/2000/svg viewbox="0 0 9.56 9.56">
-                                                    <line id=line1 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <line id=line2 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <polyline id=arrow-head-1 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                    <polyline id=arrow-head-2 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                </svg> </div>
-                                        </div>
+
+                        <!-- Keep My Note -->
+                        <div class="interactive-card" data-cursor="keepmynote">
+                            <div class="interactive-glow"></div>
+                            <img src="img/keepmynote.webp" alt="Keep My Note" class="interactive-image">
+                            <div class="interactive-content">
+                                <div class="interactive-stats">
+                                    <div class="stat">
+                                        Performance <span class="stat-value">96%</span>
                                     </div>
-                                </a> </div>
+                                    <div class="stat">
+                                        UI Score <span class="stat-value">92%</span>
+                                    </div>
+                                </div>
+                                <h3 class="interactive-title">Keep My Note</h3>
+                                <p class="interactive-description">A sleek note-taking application with real-time sync and intelligent organization features.</p>
+                                <div class="interactive-tags">
+                                    <div class="tech-item">
+                                        <img src="icon/3d-react.webp" alt="React" class="tech-icon">
+                                        <span>React</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <img src="icon/3d-nextjs.webp" alt="Firebase" class="tech-icon">
+                                        <span>Firebase</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <img src="icon/3d-typescript.webp" alt="TypeScript" class="tech-icon">
+                                        <span>TypeScript</span>
+                                    </div>
+                                </div>
+                                <div class="interactive-actions">
+                                    <a href="https://github.com/elioar" target="_blank" class="action-btn github-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                        </svg>
+                                        <span>GitHub</span>
+                                    </a>
+                                    <a href="#" class="action-btn view-btn">
+                                        <span>View Project</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class=c-project__row>
-                            <div class="c-project js-project u-width-4"> <a href=# target=_blank> <img data-scroll
-                                        data-scroll-speed=-1 src="img/JobFinder.webp" alt="Project: JobFinder">
-                                    <div class=c-project-info>
-                                        <p>YEAR: 2022</p>
-                                        <p>Category: Mobile APP</p>
-                                        <div class=c-project-cta>
-                                            <p>Job F<span class=o-accent>i</span>nder</p>
-                                            <div class="c-prj-btn js-tab-arrow"> <svg id=arrow
-                                                    xmlns=http://www.w3.org/2000/svg viewbox="0 0 9.56 9.56">
-                                                    <line id=line1 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <line id=line2 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <polyline id=arrow-head-1 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                    <polyline id=arrow-head-2 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                </svg> </div>
-                                        </div>
+
+                        <!-- Barukoni -->
+                        <div class="interactive-card" data-cursor="barukoni">
+                            <div class="interactive-glow"></div>
+                            <img src="img/barukoni-mockup.webp" alt="Barukoni" class="interactive-image">
+                            <div class="interactive-content">
+                                <div class="interactive-stats">
+                                    <div class="stat">
+                                        Type: <span class="stat-value">Website</span>
                                     </div>
-                                </a> </div>
-                            <div class="c-project js-project u-width-5"> <a href="https:/modashome.com" target=_blank> <img data-scroll
-                                        data-scroll-speed=-.8 src="img/modashome.webp" alt="Project: ModasHome">
-                                    <div class=c-project-info>
-                                        <p>YEAR: 2022</p>
-                                        <p>ROLE: UI/UX AND FRONT-END DEV</p>
-                                        <div class=c-project-cta>
-                                            <p>Mod<span class=o-accent>as</span>home</p>
-                                            <div class="c-prj-btn js-tab-arrow"> <svg id=arrow
-                                                    xmlns=http://www.w3.org/2000/svg viewbox="0 0 9.56 9.56">
-                                                    <line id=line1 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <line id=line2 x1=0.27 y1=9.29 x2=9.18 y2=0.38 fill=#4e4e4e
-                                                        stroke=#4e4e4e stroke-miterlimit=10 stroke-width=0.75></line>
-                                                    <polyline id=arrow-head-1 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                    <polyline id=arrow-head-2 points="5.01 0.38 9.18 0.38 9.18 4.55"
-                                                        fill=none stroke=#4e4e4e stroke-linecap=round
-                                                        stroke-miterlimit=10 stroke-width=0.75></polyline>
-                                                </svg> </div>
-                                        </div>
+                                    <div class="stat">
+                                        Year: <span class="stat-value">2024</span>
                                     </div>
-                                </a> </div>
+                                </div>
+                                <h3 class="interactive-title">Barukoni</h3>
+                                <p class="interactive-description">An elegant e-commerce platform with advanced filtering and real-time inventory tracking.</p>
+                                <div class="interactive-tags">
+                                    <div class="tech-item">
+                                        <img src="icon/3d-wordpress.webp" alt="WordPress" class="tech-icon">
+                                        <span>WordPress</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <img src="icon/3d-figma.webp" alt="Elementor" class="tech-icon">
+                                        <span>Elementor</span>
+                                    </div>
+                                </div>
+                                <div class="interactive-actions">
+                                    <a href="https://github.com/elioar" target="_blank" class="action-btn github-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                        </svg>
+                                        <span>GitHub</span>
+                                    </a>
+                                    <a href="https://barukoni.com" class="action-btn view-btn">
+                                        <span>View Project</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class=c-archive> <span class=o-title-small>ARCHIVE</span>
-                            <ul>
-                                <li><a target=_blank href="#">North of
-                                        Zero</a></li>
-                                <li><a target=_blank
-                                        href="#">Pulse</a></li>
-                                <li><a target=_blank
-                                        href="#">Photo
-                                        Folio</a></li>
-                                <li><a target=_blank href="#"/>Springflats Stay</a></li>
-                                <li><a target=_blank
-                                        href="#">Chuu</a>
-                                </li>
-                                <li><a target=_blank href="#">Strey</a></li>
-                                <li><a target=_blank
-                                        href="#">Abudezo</a></li>
-                                <li><a target=_blank href="#">2022 Portfolio</a></li>
-                            </ul>
+
+                        <!-- EiXai -->
+                        <div class="interactive-card" data-cursor="eixai">
+                            <div class="interactive-glow"></div>
+                            <img src="img/eixai.webp" alt="EiXai" class="interactive-image">
+                            <div class="interactive-content">
+                                <div class="interactive-stats">
+                                    <div class="stat">
+                                        Type: <span class="stat-value">Website</span>
+                                    </div>
+                                    <div class="stat">
+                                        Year: <span class="stat-value">2024</span>
+                                    </div>
+                                </div>
+                                <h3 class="interactive-title">EiXai</h3>
+                                <p class="interactive-description">Creative agency portfolio with interactive animations and modern design patterns.</p>
+                                <div class="interactive-tags">
+                                    <div class="tech-item">
+                                        <img src="icon/3d-react.webp" alt="React" class="tech-icon">
+                                        <span>React</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <img src="icon/3d-nextjs.webp" alt="Next.js" class="tech-icon">
+                                        <span>Next.js</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <img src="icon/3d-typescript.webp" alt="TypeScript" class="tech-icon">
+                                        <span>TypeScript</span>
+                                    </div>
+                                </div>
+                                <div class="interactive-actions">
+                                    <a href="https://github.com/elioar" target="_blank" class="action-btn github-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                        </svg>
+                                        <span>GitHub</span>
+                                    </a>
+                                    <a href="https://elio-ai-saas.vercel.app" class="action-btn view-btn">
+                                        <span>View Project</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div> <a class="button button--bestia c-play-btn o-arrow" href="https://www.instagram.com/elio.dev">
                         <div class=button__bg></div> <span>Check I<span class=o-accent>n</span>stagram</span>
@@ -793,6 +1386,52 @@
     <script src="menu.js"></script>
     <script src="contactform.js"></script>
     <script src="logo-home.js"></script>
+    
+    <script>
+        // Interactive Showcase JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            const interactiveCards = document.querySelectorAll('.interactive-card');
+            const cursor = document.getElementById('js-cursor');
+            const cursorDivs = cursor.querySelectorAll('div');
+
+            interactiveCards.forEach((card) => {
+                card.addEventListener('mousemove', handleInteractiveMouseMove);
+                card.addEventListener('mouseenter', handleCardMouseEnter);
+                card.addEventListener('mouseleave', handleCardMouseLeave);
+            });
+
+            function handleInteractiveMouseMove(e) {
+                const rect = this.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left - rect.width / 2;
+                const mouseY = e.clientY - rect.top - rect.height / 2;
+
+                let angle = Math.atan2(mouseY, mouseX) * (180 / Math.PI);
+                angle = (angle + 360) % 360;
+
+                this.style.setProperty('--start', angle + 60);
+            }
+
+            function handleCardMouseEnter(e) {
+                const cardType = e.currentTarget.getAttribute('data-cursor');
+                const cursorDiv = Array.from(cursorDivs).find(div => {
+                    const p = div.querySelector('p');
+                    return p && p.textContent.toLowerCase().includes(cardType);
+                });
+
+                if (cursorDiv) {
+                    // Hide all cursor divs
+                    cursorDivs.forEach(div => div.classList.remove('--visible'));
+                    // Show the matching one
+                    cursorDiv.classList.add('--visible');
+                }
+            }
+
+            function handleCardMouseLeave(e) {
+                // Hide all cursor divs when leaving card
+                cursorDivs.forEach(div => div.classList.remove('--visible'));
+            }
+        });
+    </script>
 </body>
 
 </html>
