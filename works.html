@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Works - ElioDEV Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <div class="theme-toggle">
+        <button class="theme-toggle-btn" aria-label="Toggle theme">
+            <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <style>
+        :root {
+            /* Dark theme colors (default) */
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #13111c;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent-primary: #b388ff;
+            --accent-secondary: #7c4dff;
+            --accent-primary-rgb: 179, 136, 255;
+            --accent-secondary-rgb: 124, 77, 255;
+            --border-color: rgba(179, 136, 255, 0.1);
+            --overlay-color: rgba(0, 0, 0, 0.8);
+            --card-bg: rgba(179, 136, 255, 0.03);
+            --card-border: rgba(179, 136, 255, 0.1);
+            --card-hover-bg: rgba(179, 136, 255, 0.05);
+            --card-hover-border: rgba(179, 136, 255, 0.2);
+            --gradient-start: rgba(0, 0, 0, 0);
+            --gradient-end: rgba(0, 0, 0, 0.8);
+        }
+
+        [data-theme="light"] {
+            /* Light theme colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: rgba(26, 26, 26, 0.7);
+            --accent-primary: #7c4dff;
+            --accent-secondary: #b388ff;
+            --accent-primary-rgb: 124, 77, 255;
+            --accent-secondary-rgb: 179, 136, 255;
+            --border-color: rgba(124, 77, 255, 0.1);
+            --overlay-color: rgba(255, 255, 255, 0.9);
+            --card-bg: rgba(124, 77, 255, 0.03);
+            --card-border: rgba(124, 77, 255, 0.1);
+            --card-hover-bg: rgba(124, 77, 255, 0.05);
+            --card-hover-border: rgba(124, 77, 255, 0.2);
+            --gradient-start: rgba(255, 255, 255, 0);
+            --gradient-end: rgba(255, 255, 255, 0.9);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .theme-toggle-btn {
+            background: var(--border-color);
+            border: 1px solid rgba(179, 136, 255, 0.2);
+            color: var(--accent-primary);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(179, 136, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .sun-icon,
+        .moon-icon {
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] .sun-icon {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        [data-theme="dark"] .moon-icon {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        [data-theme="light"] .sun-icon {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+
+        [data-theme="light"] .moon-icon {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        @font-face {
+            font-family: 'Gilroy-Medium';
+            src: url('font/Gilroy-Medium.e7e7c091.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Gilroy-SemiBold';
+            src: url('font/Gilroy-SemiBold.f3ed44cd.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Gilroy-Medium', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: linear-gradient(145deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .header {
+            margin-bottom: 4rem;
+        }
+
+        .subtitle {
+            color: var(--accent-primary);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .title {
+            font-family: 'Gilroy-SemiBold', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+
+        /* Interactive Showcase Styles */
+        .interactive-showcase {
+            margin-top: 0;
+            padding: 8rem 0;
+            background: linear-gradient(180deg, rgba(179, 136, 255, 0.02) 0%, rgba(103, 58, 183, 0.01) 100%);
+        }
+
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .interactive-card {
+            --start: 0;
+            position: relative;
+            border-radius: 32px;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            background: linear-gradient(
+                135deg,
+                rgba(179, 136, 255, 0.05) 0%,
+                rgba(103, 58, 183, 0.05) 100%
+            );
+            display: flex;
+            flex-direction: row;
+            min-height: 280px;
+        }
+
+        .interactive-card::before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 32px;
+            border: 2px solid transparent;
+            background: conic-gradient(
+                from 90deg at 50% 50%,
+                #b388ff,
+                #7c4dff,
+                #b388ff,
+                #7c4dff,
+                #b388ff,
+                #7c4dff,
+                #b388ff
+            );
+            background-attachment: fixed;
+            mask: linear-gradient(#0000, #0000), conic-gradient(from calc((var(--start, 0) - (20 * 1.1)) * 1deg), #ffffff1f 0deg, white, #ffffff00 100deg);
+            mask-composite: intersect;
+            mask-clip: padding-box, border-box;
+            opacity: 0;
+            transition: 0.5s ease;
+            z-index: -1;
+        }
+
+        .interactive-glow {
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            filter: blur(14px);
+            z-index: -2;
+        }
+
+        .interactive-glow::before {
+            position: absolute;
+            content: "";
+            width: 98%;
+            height: 98%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 32px;
+            border: 15px solid transparent;
+            background: conic-gradient(
+                from 90deg at 50% 50%,
+                #b388ff,
+                #7c4dff,
+                #b388ff,
+                #7c4dff,
+                #b388ff,
+                #7c4dff,
+                #b388ff
+            );
+            background-attachment: fixed;
+            mask: linear-gradient(#0000, #0000), conic-gradient(from calc((var(--start, 0) - (20 * 1.1)) * 1deg), #000 0deg, #ffffff, rgba(0, 0, 0, 0) 100deg);
+            mask-composite: intersect;
+            mask-clip: padding-box, border-box;
+            opacity: 0;
+            transition: 1s ease;
+        }
+
+        .interactive-card:hover > .interactive-glow::before {
+            opacity: 1;
+        }
+
+        .interactive-card:hover::before {
+            opacity: 0.6;
+        }
+
+        .interactive-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .interactive-image {
+            width: 45%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            border-radius: 32px 0 0 32px;
+        }
+
+        .interactive-content {
+            padding: 1.75rem;
+            background: var(--bg-primary);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 0 32px 32px 0;
+        }
+
+        .interactive-stats {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.9rem;
+        }
+
+        .interactive-stats .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            padding: 0.35rem 0.75rem;
+            background: rgba(179, 136, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        .interactive-stats .stat-value {
+            color: var(--text-primary);
+            font-family: 'Gilroy-SemiBold';
+            font-size: 0.95rem;
+        }
+
+        .interactive-title {
+            font-family: 'Gilroy-SemiBold', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .interactive-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .interactive-tags {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .interactive-tags .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0.85rem;
+            background: rgba(179, 136, 255, 0.08);
+            border: 1px solid rgba(179, 136, 255, 0.15);
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(8px);
+        }
+
+        .interactive-tags .tech-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .interactive-tags .tech-item:hover {
+            background: rgba(179, 136, 255, 0.15);
+            border-color: rgba(179, 136, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .interactive-tags .tech-item:hover .tech-icon {
+            transform: scale(1.1);
+        }
+
+        .interactive-actions {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .interactive-actions .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-family: 'Gilroy-SemiBold', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-actions .github-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .interactive-actions .github-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .interactive-actions .view-btn {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border: 1px solid var(--accent-primary);
+            color: white;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .interactive-actions .view-btn:hover {
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(179, 136, 255, 0.3);
+        }
+
+        .interactive-actions .view-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .interactive-actions .view-btn:hover svg {
+            transform: translateX(2px) translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .interactive-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .interactive-card {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .interactive-image {
+                width: 100%;
+                height: 200px;
+                border-radius: 32px 32px 0 0;
+            }
+
+            .interactive-content {
+                padding: 1.25rem;
+                border-radius: 0 0 32px 32px;
+            }
+
+            .interactive-title {
+                font-size: 1.25rem;
+            }
+
+            .interactive-description {
+                font-size: 0.95rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .interactive-tags .tech-item {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            .interactive-tags .tech-icon {
+                width: 18px;
+                height: 18px;
+            }
+
+            .interactive-actions {
+                flex-direction: column;
+                gap: 0.75rem;
+                padding-top: 1.25rem;
+            }
+
+            .interactive-actions .action-btn {
+                padding: 0.65rem 1rem;
+                font-size: 0.85rem;
+                justify-content: center;
+            }
+
+            .interactive-actions .view-btn {
+                flex: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Interactive Showcase Section -->
+    <div class="interactive-showcase" data-aos="fade-up">
+    <div class="container">
+        <div class="header" data-aos="fade-up">
+            <div class="subtitle">Portfolio</div>
+                <h1 class="title">Interactive Showcase</h1>
+                <p class="description">Experience the gradient border effect that follows your cursor movement.</p>
+        </div>
+            <div class="interactive-grid">
+            <!-- JobFinder -->
+                <div class="interactive-card">
+                    <div class="interactive-glow"></div>
+                    <img src="img/JobFinder.webp" alt="JobFinder" class="interactive-image">
+                    <div class="interactive-content">
+                        <div class="interactive-stats">
+                        <div class="stat">
+                            Performance <span class="stat-value">98%</span>
+                        </div>
+                        <div class="stat">
+                            UI Score <span class="stat-value">95%</span>
+                        </div>
+                    </div>
+                        <h3 class="interactive-title">JobFinder</h3>
+                        <p class="interactive-description">A modern job search mobile application with AI-powered job matching and real-time notifications.</p>
+                        <div class="interactive-tags">
+                        <div class="tech-item">
+                            <img src="icon/3d-react-native.webp" alt="React Native" class="tech-icon">
+                            <span>React Native</span>
+                        </div>
+                        <div class="tech-item">
+                            <img src="icon/3d-framer.webp" alt="Expo" class="tech-icon">
+                            <span>Expo</span>
+                        </div>
+                        <div class="tech-item">
+                            <img src="icon/3d-typescript.webp" alt="TypeScript" class="tech-icon">
+                            <span>TypeScript</span>
+                        </div>
+                    </div>
+                        <div class="interactive-actions">
+                            <a href="https://github.com/yourusername/jobfinder" target="_blank" class="action-btn github-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="#" class="action-btn view-btn">
+                                <span>View Project</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keep My Note -->
+                <div class="interactive-card">
+                    <div class="interactive-glow"></div>
+                    <img src="img/keepmynote.webp" alt="Keep My Note" class="interactive-image">
+                    <div class="interactive-content">
+                        <div class="interactive-stats">
+                        <div class="stat">
+                            Performance <span class="stat-value">96%</span>
+                        </div>
+                        <div class="stat">
+                            UI Score <span class="stat-value">92%</span>
+                        </div>
+                    </div>
+                        <h3 class="interactive-title">Keep My Note</h3>
+                        <p class="interactive-description">A sleek note-taking application with real-time sync and intelligent organization features.</p>
+                        <div class="interactive-tags">
+                        <div class="tech-item">
+                            <img src="icon/3d-react.webp" alt="React" class="tech-icon">
+                            <span>React</span>
+                        </div>
+                        <div class="tech-item">
+                            <img src="icon/3d-nextjs.webp" alt="Firebase" class="tech-icon">
+                            <span>Firebase</span>
+                        </div>
+                        <div class="tech-item">
+                            <img src="icon/3d-typescript.webp" alt="TypeScript" class="tech-icon">
+                            <span>TypeScript</span>
+                        </div>
+                    </div>
+                        <div class="interactive-actions">
+                            <a href="https://github.com/yourusername/keepmynote" target="_blank" class="action-btn github-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="#" class="action-btn view-btn">
+                                <span>View Project</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barukoni -->
+                <div class="interactive-card">
+                    <div class="interactive-glow"></div>
+                    <img src="img/barukoni-mockup.webp" alt="Barukoni" class="interactive-image">
+                    <div class="interactive-content">
+                        <div class="interactive-stats">
+                        <div class="stat">
+                                Type: <span class="stat-value">Website</span>
+                        </div>
+                        <div class="stat">
+                                Year: <span class="stat-value">2024</span>
+                        </div>
+                    </div>
+                        <h3 class="interactive-title">Barukoni</h3>
+                        <p class="interactive-description">An elegant e-commerce platform with advanced filtering and real-time inventory tracking.</p>
+                        <div class="interactive-tags">
+                        <div class="tech-item">
+                                <img src="icon/3d-wordpress.webp" alt="WordPress" class="tech-icon">
+                                <span>WordPress</span>
+                        </div>
+                        <div class="tech-item">
+                                <img src="icon/3d-figma.webp" alt="Elementor" class="tech-icon">
+                                <span>Elementor</span>
+                        </div>
+                        </div>
+                        <div class="interactive-actions">
+                            <a href="https://github.com/elioar" target="_blank" class="action-btn github-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://barukoni.com" class="action-btn view-btn">
+                                <span>View Project</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            </a>
+                    </div>
+                </div>
+            </div>
+
+                <!-- EiXai -->
+                <div class="interactive-card">
+                    <div class="interactive-glow"></div>
+                    <img src="img/eixai.webp" alt="EiXai" class="interactive-image">
+                    <div class="interactive-content">
+                        <div class="interactive-stats">
+                            <div class="stat">
+                                Type: <span class="stat-value">Website</span>
+                                </div>
+                            <div class="stat">
+                                Year: <span class="stat-value">2024</span>
+                                </div>
+                                </div>
+                        <h3 class="interactive-title">EiXai</h3>
+                        <p class="interactive-description">Creative agency portfolio with interactive animations and modern design patterns.</p>
+                        <div class="interactive-tags">
+                            <div class="tech-item">
+                                <img src="icon/3d-react.webp" alt="React" class="tech-icon">
+                                <span>React</span>
+                            </div>
+                            <div class="tech-item">
+                                <img src="icon/3d-nextjs.webp" alt="Next.js" class="tech-icon">
+                                <span>Next.js</span>
+                            </div>
+                            <div class="tech-item">
+                                <img src="icon/3d-typescript.webp" alt="TypeScript" class="tech-icon">
+                                <span>TypeScript</span>
+                            </div>
+                            </div>
+                        <div class="interactive-actions">
+                            <a href="https://github.com/elioar" target="_blank" class="action-btn github-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="#" class="action-btn view-btn">
+                                <span>View Project</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                            </a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+    <script>
+    </script>
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Theme Toggle Functionality
+        const themeToggleBtn = document.querySelector('.theme-toggle-btn');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.dataset.theme = savedTheme;
+
+        // Toggle theme
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.dataset.theme;
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.dataset.theme = newTheme;
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Interactive Showcase JavaScript
+            const interactiveCards = document.querySelectorAll('.interactive-card');
+
+            interactiveCards.forEach((card) => {
+                card.addEventListener('mousemove', handleInteractiveMouseMove);
+            });
+
+            function handleInteractiveMouseMove(e) {
+                const rect = this.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left - rect.width / 2;
+                const mouseY = e.clientY - rect.top - rect.height / 2;
+
+                let angle = Math.atan2(mouseY, mouseX) * (180 / Math.PI);
+                angle = (angle + 360) % 360;
+
+                this.style.setProperty('--start', angle + 60);
+            }
+        });
+    </script>
+</body>
+</html>
