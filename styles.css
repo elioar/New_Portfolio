@@ -1495,6 +1495,10 @@ footer #c-circle {
   text-transform: none;
   color: #fff;
 }
+
+html.theme-light .c-footer__socials > div:first-child > div a p {
+  color: #333333;
+}
 .c-footer__socials > div:first-child > div a p:first-child {
   font-size: 24px;
   padding-bottom: 4px;
@@ -1519,6 +1523,10 @@ footer #c-circle {
   font-size: 14px;
   color: hsla(0, 0%, 100%, 0.4);
   text-transform: capitalize;
+}
+
+html.theme-light .c-footer__copy {
+  color: rgba(51, 51, 51, 0.7);
 }
 .c-footer__copy a,
 .c-footer__copy p {
@@ -2089,6 +2097,11 @@ footer #c-circle {
   
   .c-honors__list li p span {
     font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  html.theme-light .c-honors__list li p span {
+    color: #333333;
   }
 }
 
@@ -2165,6 +2178,12 @@ footer #c-circle {
     border: 1px solid rgba(255, 255, 255, 0.14);
     background: rgba(255, 255, 255, 0.06);
     color: #fff;
+}
+
+html.theme-light #contact_btn {
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    background: rgba(0, 0, 0, 0.06);
+    color: #333333;
     font-size: 12px;
     letter-spacing: 0.04em;
     text-decoration: none;
@@ -2825,16 +2844,23 @@ footer #c-circle {
   /* Honors section */
   html:not(.theme-light) .c-honors .o-ui-arrow { stroke: rgba(255,255,255,0.3); }
   html:not(.theme-light) .c-honors__list li { border-bottom: 1px solid rgba(255,255,255,0.2); }
-  html:not(.theme-light) .c-honors__list li a { background: #ffffff; }
-  html:not(.theme-light) .c-honors__list li a img { filter: none; }
-  html:not(.theme-light) .c-honors__list li div p { color: #ffffff; }
+html:not(.theme-light) .c-honors__list li a { background: #ffffff; }
+html:not(.theme-light) .c-honors__list li a img { filter: none; }
+html:not(.theme-light) .c-honors__list li div p { color: #020202; }
+
+/* Styles for light theme */
+html.theme-light .c-honors__list li { border-bottom: 1px solid rgba(0,0,0,0.12); }
+html.theme-light .c-honors__list li a { background: #ffffff; }
+html.theme-light .c-honors__list li a img { filter: none; }
+html.theme-light .c-honors__list li div p { color: #333333; }
+html.theme-light .c-honors__list li p span { color: #333333; }
 
   /* Play CTA button */
-  html:not(.theme-light) .c-play-btn { color: #ffffff; }
+  html:not(.theme-light) .c-play-btn { color: #333333; }
 
   /* Footer */
   html:not(.theme-light) footer { background-color: #150e31; }
-  html:not(.theme-light) .c-footer > div > h2 { color: #ffffff; }
+  html:not(.theme-light) .c-footer > div > h2 { color: #333333; }
 }
 
 /* Desktop header layout - clean, no background */
@@ -4804,11 +4830,24 @@ html:not(.theme-light) .interactive-stats .stat-value {
     color: #ffffff;
 }
 
+html.theme-light .interactive-actions .github-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333333;
+}
+
 .interactive-actions .github-btn:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+html.theme-light .interactive-actions .github-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .interactive-actions .view-btn {
