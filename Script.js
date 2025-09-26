@@ -10330,7 +10330,7 @@
         "s" === t.key &&
         (t.preventDefault(),
         console.log(
-          "Please don't steal this website, if you wish to learn how to build somehting similar, check out this course: https://www.youtube.com/watch?v=XaEmcDMU01w&list=PLbtI3_MArDOkVji53VGRyQIPBOi1nB8rC"
+          "Please don't steal this website"
         ));
     }),
     console.log(
