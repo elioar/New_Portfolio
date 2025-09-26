@@ -4521,14 +4521,21 @@ html:not(.theme-light) .project-description ul li:before {
 
 .interactive-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
     margin-top: 2rem;
 }
 
 @media (max-width: 1024px) {
     .interactive-grid {
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .interactive-grid {
+        grid-template-columns: 1fr;
         gap: 2rem;
     }
 }
@@ -4552,6 +4559,8 @@ html:not(.theme-light) .project-description ul li:before {
     flex-direction: row;
     min-height: 280px;
     backdrop-filter: blur(10px);
+    width: 100%;
+    overflow: hidden;
 }
 
 /* Light theme card styling */
@@ -4839,6 +4848,38 @@ html:not(.theme-light) .interactive-stats .stat-value {
         flex-direction: column;
         min-height: auto;
         border-radius: 16px;
+        padding: 1rem;
+    }
+    
+    .interactive-image {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+    
+    .interactive-content {
+        padding: 1rem 0.5rem;
+    }
+    
+    .interactive-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .interactive-description {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .interactive-tags {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .tech-item {
+        font-size: 0.8rem;
     }
 
     /* Disable glow effects on mobile */
@@ -4865,4 +4906,12 @@ html:not(.theme-light) .interactive-stats .stat-value {
         padding: 1.5rem;
         border-radius: 0 0 16px 16px;
     }
+}
+
+/* Mobile theme toggle button positioning */
+#mobile_header_theme_toggle {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
 }

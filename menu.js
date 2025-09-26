@@ -1,16 +1,29 @@
 // Theme Toggle
 const themeToggle = document.getElementById('theme_toggle');
+const mobileThemeToggle = document.getElementById('mobile_header_theme_toggle');
 const html = document.documentElement;
 const storedTheme = localStorage.getItem('theme') || 'light';
 
 html.classList.toggle('theme-light', storedTheme === 'light');
 themeToggle.setAttribute('aria-pressed', storedTheme === 'dark');
+if (mobileThemeToggle) {
+    mobileThemeToggle.setAttribute('aria-pressed', storedTheme === 'dark');
+}
 
-themeToggle.addEventListener('click', () => {
+function toggleTheme() {
     const isDark = html.classList.toggle('theme-light');
     localStorage.setItem('theme', isDark ? 'light' : 'dark');
     themeToggle.setAttribute('aria-pressed', !isDark);
-});
+    if (mobileThemeToggle) {
+        mobileThemeToggle.setAttribute('aria-pressed', !isDark);
+    }
+}
+
+themeToggle.addEventListener('click', toggleTheme);
+
+if (mobileThemeToggle) {
+    mobileThemeToggle.addEventListener('click', toggleTheme);
+}
 
 // Mobile Menu
 const menuToggle = document.getElementById('menu_toggle');

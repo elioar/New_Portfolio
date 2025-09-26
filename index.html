@@ -22,6 +22,7 @@
         <meta name=twitter:image:alt content="Elio Dev Visual Designer.">
         <link rel=stylesheet href=style2.css>
         <link rel=stylesheet href=styles.css>
+        <link rel=stylesheet href=mobile-theme-toggle.css>
         <link rel=icon href="icon/eliodevLogo.svg">
               
 </head>
@@ -66,6 +67,13 @@
                 </span>
             </button>
         </div>
+        <button id="mobile_header_theme_toggle" class="theme-toggle o-mobile" aria-label="Toggle theme" aria-pressed="false" title="Switch to light">
+            <span class="toggle-track" aria-hidden="true">
+                <span class="toggle-icon toggle-icon--sun">☀️</span>
+                <span class="toggle-icon toggle-icon--moon">🌙</span>
+                <span class="toggle-thumb"></span>
+            </span>
+        </button>
         <button id="menu_toggle" class="c-menu-toggle o-mobile" aria-label="Open menu" aria-controls="fs_menu" aria-expanded="false">
             <span></span>
             <span></span>
@@ -98,6 +106,17 @@
                         <li style="--order:3"><a data-router-disabled href="#">Twitter</a></li>
                         <li style="--order:4"><a data-router-disabled href="#">Dribbble</a></li>
                     </ul>
+                </div>
+                <div class="c-fs-menu__theme-toggle">
+                    <p class="o-title-small">Theme</p>
+                    <button id="mobile_theme_toggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false" title="Switch to light">
+                        <span class="toggle-track" aria-hidden="true">
+                            <span class="toggle-icon toggle-icon--sun">☀️</span>
+                            <span class="toggle-icon toggle-icon--moon">🌙</span>
+                            <span class="toggle-thumb"></span>
+                        </span>
+                        <span class="toggle-label">Dark / Light Mode</span>
+                    </button>
                 </div>
                 <div class="c-fs-menu__cta">
                     <a href="javascript:void(0)" id="menu_contact" class="button button--bestia">
