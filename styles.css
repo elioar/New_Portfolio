@@ -4947,6 +4947,52 @@ html.theme-light .interactive-actions .github-btn:hover {
     }
 }
 
+/* Show More Button and Hidden Projects Styles */
+.project-hidden {
+    display: contents;
+}
+
+.project-hidden > .interactive-card {
+    display: none;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.project-hidden.visible > .interactive-card {
+    display: flex;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.show-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.show-more-btn {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.show-more-btn:hover {
+    transform: translateY(-2px);
+}
+
+.show-more-btn.hidden {
+    display: none;
+}
+
 /* Mobile theme toggle button positioning */
 #mobile_header_theme_toggle {
   position: absolute;
