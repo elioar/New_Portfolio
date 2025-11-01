@@ -4980,17 +4980,69 @@ html.theme-light .interactive-actions .github-btn:hover {
 }
 
 .show-more-btn {
+    width: 100%;
+    padding: 22px 0 !important;
+    text-align: center;
+    display: block;
+    border: 1px solid rgba(150, 148, 148, 0.4) !important;
+    border-radius: 100px;
+    margin-top: 0 !important;
+    text-transform: capitalize;
+    font-size: 16px;
+    text-decoration: none;
+    color: #ffffff;
     position: relative;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: none;
+}
+
+.show-more-btn > span {
+    position: relative;
+    z-index: 2;
+    display: block;
+    color: #ffffff;
+}
+
+/* Dark mode - white text */
+html:not(.theme-light) .show-more-btn {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+html:not(.theme-light) .show-more-btn > span {
+    color: #ffffff;
+}
+
+/* Light mode - dark text */
+.theme-light .show-more-btn {
+    color: #383838;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.theme-light .show-more-btn > span {
+    color: #383838;
 }
 
 .show-more-btn:hover {
     transform: translateY(-2px);
 }
 
+.show-more-btn:hover > span {
+    color: #fff;
+    mix-blend-mode: difference;
+}
+
 .show-more-btn.hidden {
     display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .show-more-btn {
+        padding: 24px 0 !important;
+        font-size: 20px !important;
+    }
 }
 
 /* Mobile theme toggle button positioning */
