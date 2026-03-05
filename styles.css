@@ -848,7 +848,7 @@ nav a {
   color: #fff;
 }
 .c-title {
-  padding: 16vh 0 22vh;
+  padding: 8vh 0 22vh;
 }
 .c-title__row h2 {
   letter-spacing: -4px;
@@ -870,7 +870,7 @@ nav a {
 }
 ._title-fit {
   line-height: 115%;
-  margin-top: -2%;
+  margin-top: -3%;
 }
 .c-t-a-info p {
   text-transform: uppercase;
@@ -881,7 +881,7 @@ nav a {
 }
 .c-t-a-info {
   display: flex;
-  padding-top: 10vh;
+  padding-top: 6vh;
 }
 .c-t-a-info p:first-child {
   margin-right: 10vw;
@@ -1183,7 +1183,7 @@ html.theme-light .c-about-tag--cta:hover {
   font-size: 22px;
 }
 .c-works_title {
-  margin-bottom: 10vh;
+  margin-bottom: 4vh;
 }
 .c-works_title h2 {
   display: block;
@@ -1195,7 +1195,7 @@ html.theme-light .c-about-tag--cta:hover {
 .c-works_title svg {
   transform: translate(5vw, 2vw) rotate(45deg);
   width: 14vw;
-  margin-top: 4vh;
+  margin-top: 2vh;
 }
 .c-project__row {
   display: block;
@@ -2351,7 +2351,8 @@ html.theme-light .c-footer__copy {
     align-items: flex-start;
     justify-content: space-between;
     height: 100%;
-    padding: 10vh 2px 6vh;
+    padding: 6vh 2px 4vh;
+    gap: 0;
     transform: translateY(10px);
     opacity: 0.98;
   }
@@ -2376,17 +2377,19 @@ html.theme-light .c-footer__copy {
     display: block;
     font-size: 42px;
     text-decoration: none;
-    margin: 10px 0;
+    margin: 4px 0;
     letter-spacing: -0.02em;
     color: #fff;
   }
-  .c-fs-menu__socials { width: 100%; margin-top: 20px; }
-  .c-fs-menu__socials ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
+  .c-fs-menu__socials { width: 100%; margin-top: 12px; }
+  .c-fs-menu__socials .o-title-small { margin-bottom: 4px; }
+  .c-fs-menu__socials ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 6px; }
   .c-fs-menu__socials li a { text-decoration: none; font-size: 14px; opacity: 0.9; transition: opacity 0.2s ease; display: block; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; background: rgba(255,255,255,0.04); text-align: center; color: #fff; }
   .c-fs-menu__socials a:active { opacity: 0.7; }
-  .c-fs-menu__socials a:active { opacity: 0.7; }
-  .c-fs-menu__cta { width: 100%; margin-top: auto; }
-  .c-fs-menu__cta a { width: 100%; display: block; text-align: center; padding: 18px 0; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; text-decoration: none; color: #fff; }
+  .c-fs-menu__theme-toggle { margin-top: 12px; }
+  .c-fs-menu__theme-toggle .o-title-small { margin-bottom: 4px; }
+  .c-fs-menu__cta { width: 100%; margin-top: 20px; }
+  .c-fs-menu__cta a { width: 100%; display: block; text-align: center; padding: 14px 0; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; text-decoration: none; color: #fff; }
   html.theme-light .c-fs-menu__cta a { border-color: rgba(0,0,0,.15); }
 }
 
@@ -3134,7 +3137,7 @@ html.theme-light .c-honors__list li p span { color: #333333; }
 }
 @media only screen and (min-width: 768px) {
   .c-title {
-    padding: 24vh 0 0;
+    padding: 12vh 0 0;
   }
 }
 @media only screen and (min-width: 768px) {
@@ -4164,7 +4167,7 @@ html:not(.theme-light) .toggle-icon--dark {
 
 /* Header Styles */
 .c-title {
-    padding: 24vh 0 0;
+    padding: 20vh 0 0;
 }
 
 .c-title__row {
@@ -4206,6 +4209,7 @@ html:not(.theme-light) .toggle-icon--dark {
     .c-title__row {
         flex-direction: column;
         align-items: flex-start;
+        margin-bottom: 0.25rem;
     }
 
     .c-t-a-info--desktop {
@@ -4215,13 +4219,14 @@ html:not(.theme-light) .toggle-icon--dark {
     .c-t-a-info--mobile {
         display: block;
         padding-left: 0;
-        margin-top: 2rem;
+        margin-top: 1.25rem;
+        padding-top: 4vh;
     }
 
     .c-title__svg {
         width: 100%;
         transform: none;
-        margin: 2rem 0;
+        margin: 1.25rem 0;
     }
 
     .c-down-btn {
@@ -4431,7 +4436,7 @@ html:not(.theme-light) .project-description ul li:before {
 /* Interactive Showcase Styles */
 .interactive-showcase {
     margin-top: 0;
-    padding: 4rem 0 4rem 0;
+    padding: 1.5rem 0 4rem 0;
     background: transparent;
 }
 
@@ -4439,7 +4444,7 @@ html:not(.theme-light) .project-description ul li:before {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 @media (max-width: 1024px) {
@@ -4764,8 +4769,7 @@ html.theme-light .interactive-actions .github-btn:hover {
 
 @media (max-width: 768px) {
     .interactive-showcase {
-        /* Parent .c-works already has 7vw side padding — no extra side padding needed */
-        padding: 2.5rem 0 1rem 0;
+        padding: 1rem 0 1rem 0;
     }
 
     .interactive-grid {
