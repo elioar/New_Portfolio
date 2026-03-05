@@ -960,15 +960,92 @@ nav a {
 .c-about > div:first-child {
   margin-top: 20vh;
 }
-.c-about > div:first-child a {
+.c-about > div:first-child > a {
   display: flex;
   align-items: center;
   margin-left: 30%;
   margin-top: 50px;
 }
-.c-about > div:first-child a img {
+.c-about > div:first-child > a img {
   width: 45px;
   margin-right: 14px;
+}
+
+/* About section mobile CTA — two pill tags */
+.c-about-cta {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+/* Reset the inherited a/img rules from .c-about > div:first-child */
+.c-about-cta a,
+.c-about-cta span {
+  margin: 0 !important;
+}
+
+.c-about-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 100px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: default;
+  font-family: gilroy, sans-serif;
+}
+
+/* Status tag — green tint */
+.c-about-tag--status {
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.07);
+}
+
+/* CTA tag */
+.c-about-tag--cta {
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+html:not(.theme-light) .c-about-tag--cta {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  background: transparent;
+}
+html:not(.theme-light) .c-about-tag--cta:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.38);
+}
+
+html.theme-light .c-about-tag--cta {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #222;
+  background: transparent;
+}
+html.theme-light .c-about-tag--cta:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Pulsing green dot */
+.c-avail-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+  55%       { box-shadow: 0 0 0 5px rgba(74, 222, 128, 0); }
 }
 .c-about p {
   font-size: 31px;
@@ -2009,7 +2086,7 @@ html.theme-light .c-footer__copy {
   font-size: clamp(0.9rem, 1.2vw, 1.05rem);
   line-height: 1.2;
   margin: 0;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.01em;
 }
 
@@ -2104,11 +2181,10 @@ html.theme-light .c-footer__copy {
   .c-honors__list li p {
     font-size: 0.875rem;
     margin: 0;
-    font-weight: 600;
-    /* inherits color from theme — no hardcoded color */
+    font-weight: 400;
   }
 
-  .c-honors__list li p span { font-weight: 600; }
+  .c-honors__list li p span { font-weight: 400; }
 
   /* Dark mode text */
   html:not(.theme-light) .c-honors__list li p,

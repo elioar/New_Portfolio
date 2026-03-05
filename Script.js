@@ -9970,7 +9970,7 @@
             scrollTrigger: {
               trigger: t,
               scroller: "#js-scroll",
-              start: "10 center",
+              start: "top 80%",
             },
             y: "100%",
             duration: 1.2,
@@ -9983,7 +9983,7 @@
             scrollTrigger: {
               trigger: t,
               scroller: "#js-scroll",
-              start: "10 center",
+              start: "top 80%",
             },
             x: "-90%",
             opacity: 0,
