@@ -1,29 +1,20 @@
 // Theme Toggle
 const themeToggle = document.getElementById('theme_toggle');
 const mobileThemeToggle = document.getElementById('mobile_header_theme_toggle');
+const menuThemeToggle = document.getElementById('mobile_theme_toggle');
 const html = document.documentElement;
 const storedTheme = localStorage.getItem('theme') || 'light';
 
 html.classList.toggle('theme-light', storedTheme === 'light');
-themeToggle.setAttribute('aria-pressed', storedTheme === 'dark');
-if (mobileThemeToggle) {
-    mobileThemeToggle.setAttribute('aria-pressed', storedTheme === 'dark');
-}
 
 function toggleTheme() {
-    const isDark = html.classList.toggle('theme-light');
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    themeToggle.setAttribute('aria-pressed', !isDark);
-    if (mobileThemeToggle) {
-        mobileThemeToggle.setAttribute('aria-pressed', !isDark);
-    }
+    const isLight = html.classList.toggle('theme-light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
-themeToggle.addEventListener('click', toggleTheme);
-
-if (mobileThemeToggle) {
-    mobileThemeToggle.addEventListener('click', toggleTheme);
-}
+if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+if (menuThemeToggle) menuThemeToggle.addEventListener('click', toggleTheme);
 
 // Mobile Menu
 const menuToggle = document.getElementById('menu_toggle');
@@ -34,6 +25,7 @@ const menuLinks = document.querySelectorAll('[data-menu-close]');
 function toggleMenu(show) {
     menuToggle.setAttribute('aria-expanded', show);
     fsMenu.setAttribute('aria-hidden', !show);
+    fsMenu.classList.toggle('--open', show);
     if (show) {
         document.body.style.overflow = 'hidden';
     } else {
@@ -52,9 +44,18 @@ menuLinks.forEach(link => {
     link.addEventListener('click', () => toggleMenu(false));
 });
 
-// Close menu on escape key
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && fsMenu.getAttribute('aria-hidden') === 'false') {
+    if (e.key === 'Escape' && fsMenu.classList.contains('--open')) {
         toggleMenu(false);
     }
 });
+
+// "Discuss Project" button inside menu → close menu and open contact form
+const menuContact = document.getElementById('menu_contact');
+if (menuContact) {
+    menuContact.addEventListener('click', () => {
+        toggleMenu(false);
+        document.querySelector('#js-overlay').classList.add('--visible');
+        document.querySelector('#js-contact').classList.add('--visible');
+    });
+}
