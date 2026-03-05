@@ -620,9 +620,11 @@
                     
                     <!-- Show More Button -->
                     <div class="show-more-container">
-                        <button id="show-more-btn" class="button button--bestia show-more-btn">
-                            <div class="button__bg"></div>
+                        <button id="show-more-btn" class="show-more-btn">
                             <span>Show M<span class="o-accent">o</span>re Projects</span>
+                            <svg class="btn-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -957,34 +959,66 @@
             }
         });
 
-        // Show More Button Functionality
+        // Show More / Show Less — smooth height animation
         document.addEventListener('DOMContentLoaded', () => {
-            const showMoreBtn = document.getElementById('show-more-btn');
+            const showMoreBtn   = document.getElementById('show-more-btn');
             const hiddenProjects = document.querySelector('.project-hidden');
-            let isExpanded = false;
+            if (!showMoreBtn || !hiddenProjects) return;
 
-            if (showMoreBtn && hiddenProjects) {
-                showMoreBtn.addEventListener('click', () => {
-                    if (!isExpanded) {
-                        // Show hidden projects
-                        hiddenProjects.classList.add('visible');
-                        // Update button text
-                        showMoreBtn.querySelector('span').innerHTML = 'Show L<span class="o-accent">e</span>ss Projects';
-                        isExpanded = true;
-                        
-                        // Smooth scroll to show more button after expansion
-                        setTimeout(() => {
-                            showMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }, 100);
-                    } else {
-                        // Hide projects
-                        hiddenProjects.classList.remove('visible');
-                        // Update button text
-                        showMoreBtn.querySelector('span').innerHTML = 'Show M<span class="o-accent">o</span>re Projects';
-                        isExpanded = false;
-                    }
-                });
-            }
+            let isExpanded = false;
+            let animating  = false;
+
+            showMoreBtn.addEventListener('click', () => {
+                if (animating) return;
+                animating = true;
+
+                if (!isExpanded) {
+                    // ── EXPAND ──────────────────────────────────────────
+                    // Measure real height before showing
+                    hiddenProjects.style.maxHeight = 'none';
+                    const fullH = hiddenProjects.scrollHeight;
+                    hiddenProjects.style.maxHeight = '0';
+
+                    // Trigger reflow so transition picks up the 0 start value
+                    hiddenProjects.offsetHeight; // eslint-disable-line no-unused-expressions
+
+                    hiddenProjects.style.maxHeight = fullH + 'px';
+                    hiddenProjects.classList.add('visible');
+                    showMoreBtn.classList.add('--expanded');
+                    showMoreBtn.querySelector('span').innerHTML = 'Show L<span class="o-accent">e</span>ss Projects';
+                    isExpanded = true;
+
+                    hiddenProjects.addEventListener('transitionend', function onEnd(e) {
+                        if (e.propertyName !== 'max-height') return;
+                        hiddenProjects.style.maxHeight = 'none'; // let content breathe after open
+                        hiddenProjects.removeEventListener('transitionend', onEnd);
+                        animating = false;
+                    });
+
+                } else {
+                    // ── COLLAPSE ─────────────────────────────────────────
+                    // Lock current height so transition has a from-value
+                    hiddenProjects.style.maxHeight = hiddenProjects.scrollHeight + 'px';
+                    hiddenProjects.offsetHeight; // reflow
+
+                    hiddenProjects.style.maxHeight = '0';
+                    hiddenProjects.classList.remove('visible');
+                    showMoreBtn.classList.remove('--expanded');
+                    showMoreBtn.querySelector('span').innerHTML = 'Show M<span class="o-accent">o</span>re Projects';
+                    isExpanded = false;
+
+                    // Scroll button back into view mid-collapse
+                    setTimeout(() => {
+                        showMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 180);
+
+                    hiddenProjects.addEventListener('transitionend', function onEnd(e) {
+                        if (e.propertyName !== 'max-height') return;
+                        hiddenProjects.removeEventListener('transitionend', onEnd);
+                        animating = false;
+                    });
+                }
+            });
         });
 
         // Force Locomotive Scroll to recalculate after full page load

@@ -1283,13 +1283,13 @@ nav a {
 }
 .c-honors__title {
   display: block;
-  margin-bottom: 8vh;
+  margin-bottom: 4vh;
 }
 .c-honors__title h2 {
   transform: translate(-10px);
 }
 .c-honors__title > span {
-  margin-top: 5vh;
+  margin-top: 3vh;
   margin-left: 26vw;
 }
 .c-honors__wrap {
@@ -1301,7 +1301,7 @@ nav a {
   width: 100%;
 }
 .c-honors__wrap > div:first-child {
-  padding-top: 10vh;
+  padding-top: 6vh;
   text-align: right;
 }
 .c-honors__wrap > div:first-child svg {
@@ -2047,91 +2047,92 @@ html.theme-light .c-footer__copy {
   .c-honors__list ul {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    padding: 1rem 0.75rem;
+    gap: 0.75rem;
+    padding: 0; /* parent .c-honors handles side padding via 7vw */
   }
-  
+
+  /* Reset desktop border-bottom — cards use their own border */
+  .c-honors__list li,
+  html:not(.theme-light) .c-honors__list li,
+  html.theme-light .c-honors__list li {
+    border-bottom: none;
+  }
+
   .c-honors__list li {
     flex-direction: column;
+    align-items: center;
     text-align: center;
-    gap: 0.5rem;
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
+    gap: 0.6rem;
+    padding: 1.1rem 0.75rem 1rem;
+    border-radius: 16px;
+    /* Dark mode card — default */
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.25s ease, background 0.25s ease;
   }
-  
-  .c-honors__list li > div:first-child {
-    order: 2;
+
+  /* Light mode card */
+  html.theme-light .c-honors__list li {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   }
-  /* Center text with icon on mobile */
+
+  .c-honors__list li:active { transform: scale(0.97); }
+
+  .c-honors__list li > div:first-child { order: 2; }
+
   .c-honors__list li div {
     width: 100%;
     justify-content: center;
   }
-  .c-honors__list li div p {
-    text-align: center;
-  }
-  
+
+  .c-honors__list li div p { text-align: center; }
+
   .c-tech-icon {
     order: 1;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     margin: 0 auto;
   }
-  
-  .tech-icon-3d {
-    width: 34px;
-    height: 34px;
-  }
-  
 
-  
+  .tech-icon-3d {
+    width: 36px;
+    height: 36px;
+  }
+
   .c-honors__list li p {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     margin: 0;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    /* inherits color from theme — no hardcoded color */
   }
-  
-  .c-honors__list li p span {
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-  }
-  
-  html.theme-light .c-honors__list li p span {
-    color: #333333;
-  }
+
+  .c-honors__list li p span { font-weight: 600; }
+
+  /* Dark mode text */
+  html:not(.theme-light) .c-honors__list li p,
+  html:not(.theme-light) .c-honors__list li p span { color: rgba(255, 255, 255, 0.9); }
+
+  /* Light mode text */
+  html.theme-light .c-honors__list li p,
+  html.theme-light .c-honors__list li p span { color: #383838; }
 }
 
 /* Extra Small Mobile */
 @media (max-width: 480px) {
   .c-honors__list ul {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-    padding: 0.75rem 0.5rem;
+    gap: 0.6rem;
   }
-  
-  .c-honors__list li {
-    padding: 0.6rem 0.5rem;
-    gap: 0.4rem;
-  }
-  
-  .c-tech-icon {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .tech-icon-3d {
-    width: 30px;
-    height: 30px;
-  }
-  
 
-  
-  .c-honors__list li p {
-    font-size: 0.85rem;
+  .c-honors__list li {
+    padding: 0.9rem 0.5rem 0.85rem;
+    gap: 0.5rem;
   }
+
+  .c-tech-icon { width: 42px; height: 42px; }
+  .tech-icon-3d { width: 32px; height: 32px; }
+  .c-honors__list li p { font-size: 0.8rem; }
 }
 
 /* Mobile header - clean, transparent, matching desktop */
@@ -4783,101 +4784,130 @@ html.theme-light .interactive-actions .github-btn:hover {
     .interactive-actions .view-btn { flex: 1; }
 }
 
-/* Show More Button and Hidden Projects Styles */
+/* ── Show More / Show Less ──────────────────────────────────── */
+
+/* The hidden container sits inside the grid and spans all columns */
 .project-hidden {
-    display: contents;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    /* collapsed state */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        max-height 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity    0.45s ease,
+        gap        0.4s ease;
 }
 
-.project-hidden > .interactive-card {
-    display: none;
-    animation: fadeInUp 0.6s ease-out;
+.project-hidden.visible {
+    opacity: 1;
+    /* max-height is set by JS to the exact scrollHeight */
 }
 
-.project-hidden.visible > .interactive-card {
-    display: flex;
+/* Staggered card entrance */
+.project-hidden .interactive-card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.project-hidden.visible .interactive-card:nth-child(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.18s;
 }
 
+.project-hidden.visible .interactive-card:nth-child(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.30s;
+}
+
+/* On collapse — reset card state immediately so re-open looks fresh */
+.project-hidden:not(.visible) .interactive-card {
+    transition: none;
+}
+
+/* ── Show More button ───────────────────────────────────────── */
 .show-more-container {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     width: 100%;
 }
 
 .show-more-btn {
     width: 100%;
-    padding: 22px 0 !important;
-    text-align: center;
-    display: block;
-    border: 1px solid rgba(150, 148, 148, 0.4) !important;
+    padding: 20px 28px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid rgba(150, 148, 148, 0.35) !important;
     border-radius: 100px;
     margin-top: 0 !important;
-    text-transform: capitalize;
-    font-size: 16px;
-    text-decoration: none;
-    color: #ffffff;
-    position: relative;
+    font-size: 15px;
+    letter-spacing: 0.02em;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
     overflow: hidden;
     background: none;
+    position: relative;
 }
 
 .show-more-btn > span {
     position: relative;
     z-index: 2;
     display: block;
-    color: #ffffff;
 }
 
-/* Dark mode - white text */
+.show-more-btn .btn-chevron {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.show-more-btn.--expanded .btn-chevron {
+    transform: rotate(180deg);
+}
+
+/* Dark mode */
 html:not(.theme-light) .show-more-btn {
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.4) !important;
-}
-
-html:not(.theme-light) .show-more-btn > span {
-    color: #ffffff;
-}
-
-/* Light mode - dark text */
-.theme-light .show-more-btn {
-    color: #383838;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-}
-
-.theme-light .show-more-btn > span {
-    color: #383838;
-}
-
-.show-more-btn:hover {
-    transform: translateY(-2px);
-}
-
-.show-more-btn:hover > span {
     color: #fff;
-    mix-blend-mode: difference;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+html:not(.theme-light) .show-more-btn:hover {
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
-.show-more-btn.hidden {
-    display: none;
+/* Light mode */
+html.theme-light .show-more-btn {
+    color: #383838;
+    border-color: rgba(0, 0, 0, 0.18) !important;
+}
+html.theme-light .show-more-btn:hover {
+    border-color: rgba(0, 0, 0, 0.35) !important;
+    background: rgba(0, 0, 0, 0.03);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
+    .project-hidden {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
     .show-more-btn {
-        padding: 24px 0 !important;
-        font-size: 20px !important;
+        padding: 18px 24px !important;
+        font-size: 15px !important;
     }
 }
 
