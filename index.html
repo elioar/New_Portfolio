@@ -896,10 +896,12 @@
         <form action="https://formspree.io/f/xdkoebln" method="POST" id="contact">
             <input type="hidden" name="_subject" value="New Project Inquiry">
             <div class=c-slider id=js-slider>
-                <div class="--welcome c-message"> <span>🙌</span>
+                <div class="--welcome c-message"> <span>👋</span>
                     <h1 class=js-split>Hi There!</h1>
                     <p class=js-split>Glad to see you here, Would love to know some things about the project.</p>
-                    <p class=js-split>Let's Go!</p> <img src="/icon/ui-arrow-desktop.02091565.svg" alt=">">
+                    <p class=js-split>Let's Go!</p>
+                    <button type="button" class="c-welcome-next" id="welcome-next" aria-label="Continue">Let's Go!</button>
+                    <img src="/icon/ui-arrow-desktop.02091565.svg" alt="">
                 </div>
                 <div class=c-query>
                     <div class=c-title>
@@ -907,6 +909,7 @@
                     </div>
                     <div class=c-reply>
                         <div class=s-text style=--order:1> <input type=text name=Name placeholder="Type your name">
+                            <button type="button" class="c-input-next" aria-label="Next">Next</button>
                         </div>
                     </div>
                 </div>
@@ -947,7 +950,9 @@
                     </div>
                     <div class=c-reply>
                         <div class=s-text style=--order:1> <input type=email name=Email placeholder="Your Email"
-                                required> </div>
+                                required>
+                            <button type="button" class="c-input-next" aria-label="Next">Next</button>
+                        </div>
                     </div>
                 </div>
                 <div class=c-query>
@@ -955,15 +960,15 @@
                         <h2 class=js-split>May I ask how did you find me?</h2>
                     </div>
                     <div class=c-reply>
-                        <div style=--order:1> <input type=radio name=Source id=awww value="Awards Platform">
-                            <label for=awww>Award Platform</label>
+                        <div style=--order:1> <input type=radio name=Source id=source-google value="Google search">
+                            <label for=source-google>Google search</label>
                         </div>
-                        <div style=--order:2> <input type=radio name=Source id=insp value=Inspiration> <label
-                                for=insp>Inspiration Sites</label> </div>
-                        <div style=--order:3> <input type=radio name=Source id=behance value=Behance> <label
-                                for=behance>Behance</label> </div>
-                        <div style=--order:4> <input type=radio name=Source id=other value=Others> <label
-                                for=other>Others</label> </div>
+                        <div style=--order:2> <input type=radio name=Source id=source-github value=GitHub> <label
+                                for=source-github>GitHub</label> </div>
+                        <div style=--order:3> <input type=radio name=Source id=source-linkedin value=LinkedIn> <label
+                                for=source-linkedin>LinkedIn</label> </div>
+                        <div style=--order:4> <input type=radio name=Source id=source-other value=Other> <label
+                                for=source-other>Other</label> </div>
                     </div>
                 </div>
                 <div class=c-query>
@@ -972,10 +977,16 @@
                     </div>
                     <div class=c-reply>
                         <div class=s-text style=--order:1> <input type=text name=Website
-                                placeholder="Personal or Company Website"> </div>
-                        <div class=s-text style=--order:2> <input type=tel name=Phone placeholder="Phone Number"> </div>
+                                placeholder="Personal or Company Website">
+                            <button type="button" class="c-input-next" aria-label="Next">Next</button>
+                        </div>
+                        <div class=s-text style=--order:2> <input type=tel name=Phone placeholder="Phone Number">
+                            <button type="button" class="c-input-next" aria-label="Next">Next</button>
+                        </div>
                         <div class=s-text style=--order:3> <input type=text name=Socials multiple
-                                placeholder="Socials(Separate by Comma)"> </div>
+                                placeholder="Socials(Separate by Comma)">
+                            <button type="button" class="c-input-next" aria-label="Next">Next</button>
+                        </div>
                     </div>
                 </div>
                 <div class=c-query>
@@ -984,7 +995,9 @@
                     </div>
                     <div class=c-reply>
                         <div class="s-text s-text-area" style=--order:1> <textarea name=Message rows=5
-                                placeholder="More details about your project."></textarea> </div>
+                                placeholder="More details about your project."></textarea>
+                            <button type="button" class="c-input-next" aria-label="Next">Next</button>
+                        </div>
                     </div>
                 </div>
                 <div class="--welcome c-message"> <span>👌</span>

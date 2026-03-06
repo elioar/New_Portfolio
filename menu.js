@@ -55,7 +55,11 @@ const menuContact = document.getElementById('menu_contact');
 if (menuContact) {
     menuContact.addEventListener('click', () => {
         toggleMenu(false);
-        document.querySelector('#js-overlay').classList.add('--visible');
-        document.querySelector('#js-contact').classList.add('--visible');
+        if (typeof window.__openContact === 'function') {
+            window.__openContact();
+        } else {
+            document.querySelector('#js-overlay').classList.add('--visible');
+            document.querySelector('#js-contact').classList.add('--visible');
+        }
     });
 }

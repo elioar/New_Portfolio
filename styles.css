@@ -165,6 +165,7 @@ ul {
   transition: 0.6s;
   transition-delay: 0.4s;
   will-change: transform;
+  z-index: 0;
 }
 .c-contact.--visible {
   visibility: visible;
@@ -399,16 +400,26 @@ ul {
 }
 .s-text {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
   border-bottom: 2px solid #eee !important;
+  gap: 0;
+}
+.s-text input,
+.s-text textarea {
+  flex: 1;
+  min-width: 0;
 }
 .s-text.s-text-area {
   border: 2px solid #eee;
   border-radius: 16px;
   width: 100% !important;
+  align-items: flex-end;
 }
 .s-text.s-text-area textarea {
   max-width: 100%;
+  min-height: 80px;
 }
 .s-text.s-text-area textarea:focus {
   padding-left: 20px;
@@ -434,10 +445,37 @@ ul {
   left: 12px;
   transform: translateY(-50%) rotate(-90deg);
   transition: 0.4s;
+  pointer-events: none;
 }
 .s-text:focus-within:before {
   opacity: 0;
   transform: translate(12px, -50%) rotate(-90deg);
+}
+.c-input-next {
+  flex-shrink: 0;
+  margin-top: 0;
+  margin-left: 12px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-family: gilroy, sans-serif;
+  font-weight: 600;
+  color: #fff;
+  background: #5d3fd3;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease;
+}
+.c-input-next:hover,
+.c-input-next:active {
+  background: #4a2fc2;
+}
+.s-text.s-text-area .c-input-next {
+  margin-top: 0;
+  margin-left: 12px;
+  margin-bottom: 8px;
+  align-self: flex-end;
 }
 .c-message {
   padding: 4vh 8vw;
@@ -481,6 +519,12 @@ ul {
   transform: translate(0);
   opacity: 1;
 }
+.c-message.--welcome {
+  cursor: pointer;
+  pointer-events: auto;
+  min-height: 280px;
+  -webkit-tap-highlight-color: transparent;
+}
 .c-message.--welcome h1 {
   font-size: 45px;
   padding: 30px 0;
@@ -489,6 +533,26 @@ ul {
   font-size: 28px;
   width: 90%;
   padding: 10px 0;
+}
+.c-welcome-next {
+  display: block;
+  margin: 24px auto 0;
+  padding: 14px 32px;
+  font-size: 20px;
+  font-family: gilroy, sans-serif;
+  font-weight: 600;
+  color: #fff;
+  background: #5d3fd3;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease;
+}
+.c-welcome-next:hover,
+.c-welcome-next:active {
+  background: #4a2fc2;
 }
 .c-cate {
   width: 100%;

@@ -2541,6 +2541,7 @@
       lerp: 0.06,
     });
   window.__scrollToTop = function () { tf.scrollTo(0, 0, 0); };
+  window.__openContact = function () { td.open(); };
   let td = {
       index: 0,
       first: !0,
@@ -2602,7 +2603,16 @@
         document.querySelector("#js-overlay").classList.add("--visible"),
           document.querySelector("#js-contact").classList.add("--visible"),
           setTimeout(() => {
-            this.show(this.query[this.index - 1]);
+            var el = this.index > 0 ? this.query[this.index - 1] : this.query[0];
+            if (el) this.show(el);
+            if (this.index === 0) {
+              this.slider.style.transform = "translateX(0)";
+              if (this.first) {
+                var self = this;
+                setTimeout(function () { self.next_query(); }, 600);
+                this.first = !1;
+              }
+            }
           }, 1200);
       },
       close: function () {
@@ -10141,17 +10151,16 @@
         $ = document.querySelectorAll(".c-cate > div > button");
       document.querySelector("#contact_btn").addEventListener("click", () => {
         var t, e;
-        (e = 6),
+        (e = 3),
           (t = Math.ceil((t = 0))),
           (f = Math.floor(Math.random() * ((e = Math.floor(e)) - t + 1)) + t),
           (document.querySelector(".c-cate > div").style.display = ""),
-          (p.src = sT()),
-          4 == f
+          (p.src = "img/misc/cat-meme.webp"),
+          1 == f
             ? ((d.style = "display: block"),
               $[0].addEventListener("click", () => {
                 (document.querySelector(".c-cate > div").style.display =
                   "none"),
-                  (p.src = s1()),
                   setTimeout(() => {
                     (d.style = "display: none"), h();
                   }, 3e3);
@@ -10159,7 +10168,6 @@
               $[1].addEventListener("click", () => {
                 (document.querySelector(".c-cate > div").style.display =
                   "none"),
-                  (p.src = s4()),
                   setTimeout(() => {
                     (d.style = "display: none"), h();
                   }, 3e3);
@@ -10211,17 +10219,16 @@
       }
       document.querySelector("#contact_btn").addEventListener("click", () => {
         var s, o;
-        (o = 6),
+        (o = 3),
           (s = Math.ceil((s = 0))),
           (e = Math.floor(Math.random() * ((o = Math.floor(o)) - s + 1)) + s),
           (document.querySelector(".c-cate > div").style.display = ""),
-          (r.src = sT()),
-          4 == e
+          (r.src = "img/misc/cat-meme.webp"),
+          1 == e
             ? ((i.style = "display: block"),
               n[0].addEventListener("click", () => {
                 (document.querySelector(".c-cate > div").style.display =
                   "none"),
-                  (r.src = s1()),
                   setTimeout(() => {
                     (i.style = "display: none"), t();
                   }, 3e3);
@@ -10229,7 +10236,6 @@
               n[1].addEventListener("click", () => {
                 (document.querySelector(".c-cate > div").style.display =
                   "none"),
-                  (r.src = s4()),
                   setTimeout(() => {
                     (i.style = "display: none"), t();
                   }, 3e3);
@@ -10311,6 +10317,38 @@
           : (td.next_query(),
             document.querySelector(".c-error").classList.remove("--visible")));
     });
+  document.querySelectorAll(".c-input-next").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var wrap = btn.closest(".s-text");
+      var input = wrap ? wrap.querySelector("input, textarea") : null;
+      if (input && input.willValidate && !input.checkValidity()) {
+        document.querySelector(".c-error").classList.add("--visible");
+      } else {
+        document.querySelector(".c-error").classList.remove("--visible");
+        td.next_query();
+      }
+    });
+  });
+  function advanceWelcome() {
+    if (td.query[0] && td.query[0].classList.contains("--visible")) td.next_query();
+  }
+  var welcomeSlide = document.querySelector("#js-slider .c-message.--welcome");
+  if (welcomeSlide) {
+    welcomeSlide.addEventListener("click", advanceWelcome);
+    welcomeSlide.addEventListener("touchend", function (e) {
+      e.preventDefault();
+      advanceWelcome();
+    }, { passive: false });
+  }
+  var welcomeBtn = document.getElementById("welcome-next");
+  if (welcomeBtn) {
+    welcomeBtn.addEventListener("click", function (e) { e.stopPropagation(); advanceWelcome(); });
+    welcomeBtn.addEventListener("touchend", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      advanceWelcome();
+    }, { passive: false });
+  }
   document
     .querySelector(".c-credits > div:last-child")
     .addEventListener("click", () => {
