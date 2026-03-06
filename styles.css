@@ -4906,6 +4906,18 @@ html.theme-light .interactive-actions .github-btn:hover {
     transition-delay: 0.30s;
 }
 
+.project-hidden.visible .interactive-card:nth-child(3) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.42s;
+}
+
+.project-hidden.visible .interactive-card:nth-child(4) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.54s;
+}
+
 /* On collapse — reset card state immediately so re-open looks fresh */
 .project-hidden:not(.visible) .interactive-card {
     transition: none;
