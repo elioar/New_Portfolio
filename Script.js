@@ -2626,6 +2626,49 @@
       },
     };
   window.__contactSubmitSuccess = function () { td.next_query(); };
+  function openAndAdvance() {
+    td.open();
+    if (td.first) {
+      setTimeout(function () { td.next_query(); }, 1e3);
+      setTimeout(function () { td.next_query(); }, 4500);
+      td.first = false;
+    }
+  }
+  window.__openContactMaybeWithCat = function () {
+    var d = document.querySelector(".c-cate");
+    var p = document.querySelector(".c-cate > img");
+    var div = document.querySelector(".c-cate > div");
+    var buttons = document.querySelectorAll(".c-cate > div > button");
+    if (!d || !p || !div || !buttons || buttons.length < 2) {
+      openAndAdvance();
+      return;
+    }
+    var roll = Math.floor(Math.random() * 3) + 1;
+    p.src = "img/misc/cat-meme.webp";
+    div.style.display = "";
+    if (roll === 1) {
+      d.style.display = "block";
+      var openAfterCat = function () {
+        div.style.display = "none";
+        d.style.display = "none";
+        openAndAdvance();
+      };
+      var b0 = buttons[0].cloneNode(true);
+      var b1 = buttons[1].cloneNode(true);
+      buttons[0].replaceWith(b0);
+      buttons[1].replaceWith(b1);
+      b0.addEventListener("click", function () {
+        div.style.display = "none";
+        openAfterCat();
+      });
+      b1.addEventListener("click", function () {
+        div.style.display = "none";
+        openAfterCat();
+      });
+    } else {
+      openAndAdvance();
+    }
+  };
   function tp() {}
   tp.prototype = {
     on: function (t, e, i) {
@@ -10146,34 +10189,8 @@
           document.querySelectorAll(".js-time").forEach((t) => (t.innerHTML = c()));
           document.querySelectorAll(".js-utc").forEach((t) => (t.innerHTML = g()));
         }, 6e4);
-      let f,
-        d = document.querySelector(".c-cate"),
-        p = document.querySelector(".c-cate > img"),
-        $ = document.querySelectorAll(".c-cate > div > button");
-      document.querySelector("#contact_btn").addEventListener("click", () => {
-        var t, e;
-        (e = 3),
-          (t = Math.ceil((t = 0))),
-          (f = Math.floor(Math.random() * ((e = Math.floor(e)) - t + 1)) + t),
-          (document.querySelector(".c-cate > div").style.display = ""),
-          (p.src = "img/misc/cat-meme.webp"),
-          1 == f
-            ? ((d.style = "display: block"),
-              $[0].addEventListener("click", () => {
-                (document.querySelector(".c-cate > div").style.display =
-                  "none"),
-                  setTimeout(() => {
-                    (d.style = "display: none"), h();
-                  }, 3e3);
-              }),
-              $[1].addEventListener("click", () => {
-                (document.querySelector(".c-cate > div").style.display =
-                  "none"),
-                  setTimeout(() => {
-                    (d.style = "display: none"), h();
-                  }, 3e3);
-              }))
-            : h();
+      document.querySelector("#contact_btn") && document.querySelector("#contact_btn").addEventListener("click", () => {
+        window.__openContactMaybeWithCat && window.__openContactMaybeWithCat();
       }),
         window.matchMedia("(max-width: 900px)").matches &&
           window.scrollTo(0, 0),
@@ -10208,40 +10225,14 @@
         setTimeout(() => {
           af.refresh();
         }, 2e3);
-      let e,
-        i = document.querySelector(".c-cate"),
-        r = document.querySelector(".c-cate > img"),
-        n = document.querySelectorAll(".c-cate > div > button");
       function s() {
         document.querySelector("nav").classList.add("--white");
       }
       function o() {
         document.querySelector("nav").classList.remove("--white");
       }
-      document.querySelector("#contact_btn").addEventListener("click", () => {
-        var s, o;
-        (o = 3),
-          (s = Math.ceil((s = 0))),
-          (e = Math.floor(Math.random() * ((o = Math.floor(o)) - s + 1)) + s),
-          (document.querySelector(".c-cate > div").style.display = ""),
-          (r.src = "img/misc/cat-meme.webp"),
-          1 == e
-            ? ((i.style = "display: block"),
-              n[0].addEventListener("click", () => {
-                (document.querySelector(".c-cate > div").style.display =
-                  "none"),
-                  setTimeout(() => {
-                    (i.style = "display: none"), t();
-                  }, 3e3);
-              }),
-              n[1].addEventListener("click", () => {
-                (document.querySelector(".c-cate > div").style.display =
-                  "none"),
-                  setTimeout(() => {
-                    (i.style = "display: none"), t();
-                  }, 3e3);
-              }))
-            : t();
+      document.querySelector("#contact_btn") && document.querySelector("#contact_btn").addEventListener("click", () => {
+        window.__openContactMaybeWithCat && window.__openContactMaybeWithCat();
       }),
         af.create({
           trigger: "footer",

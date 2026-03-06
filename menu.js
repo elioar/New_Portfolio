@@ -55,7 +55,9 @@ const menuContact = document.getElementById('menu_contact');
 if (menuContact) {
     menuContact.addEventListener('click', () => {
         toggleMenu(false);
-        if (typeof window.__openContact === 'function') {
+        if (typeof window.__openContactMaybeWithCat === 'function') {
+            window.__openContactMaybeWithCat();
+        } else if (typeof window.__openContact === 'function') {
             window.__openContact();
         } else {
             document.querySelector('#js-overlay').classList.add('--visible');

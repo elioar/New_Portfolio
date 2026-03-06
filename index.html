@@ -1162,7 +1162,8 @@
         // "Get in touch" and footer "Ask Project" → open contact/discuss modal
         document.addEventListener('DOMContentLoaded', () => {
             function openDiscuss() {
-                if (typeof window.__openContact === 'function') window.__openContact();
+                if (typeof window.__openContactMaybeWithCat === 'function') window.__openContactMaybeWithCat();
+                else if (typeof window.__openContact === 'function') window.__openContact();
                 else {
                     document.querySelector('#js-overlay')?.classList.add('--visible');
                     document.querySelector('#js-contact')?.classList.add('--visible');
