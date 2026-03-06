@@ -332,7 +332,7 @@
                                 <span class="c-avail-dot"></span>
                                 Available
                             </span>
-                            <span class="c-about-tag c-about-tag--cta" onclick="window.location='mailto:elio.developer02@gmail.com'">
+                            <span class="c-about-tag c-about-tag--cta" id="get-in-touch-cta" role="button" tabindex="0" aria-label="Open contact form">
                                 Get in touch ↗
                             </span>
                         </div>
@@ -849,8 +849,8 @@
                                     class="button button--bestia">
                                     <div class=button__bg></div><span>Write a Message</span>
                                 </a> </div>
-                            <div> <a href=javascript:void(0) id=contact_btn data-router-disabled
-                                    class="button button--bestia contact_btn">
+                            <div> <a href=javascript:void(0) id=footer-ask-project data-router-disabled
+                                    class="button button--bestia contact_btn" aria-label="Open contact form">
                                     <div class=button__bg></div><span>Ask Project</span>
                                 </a> </div>
                         </div>
@@ -1157,6 +1157,26 @@
             setTimeout(() => {
                 window.dispatchEvent(new Event('resize'));
             }, 1200);
+        });
+
+        // "Get in touch" and footer "Ask Project" → open contact/discuss modal
+        document.addEventListener('DOMContentLoaded', () => {
+            function openDiscuss() {
+                if (typeof window.__openContact === 'function') window.__openContact();
+                else {
+                    document.querySelector('#js-overlay')?.classList.add('--visible');
+                    document.querySelector('#js-contact')?.classList.add('--visible');
+                }
+            }
+            const getInTouch = document.getElementById('get-in-touch-cta');
+            if (getInTouch) {
+                getInTouch.addEventListener('click', openDiscuss);
+                getInTouch.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDiscuss(); } });
+            }
+            const footerAskProject = document.getElementById('footer-ask-project');
+            if (footerAskProject) {
+                footerAskProject.addEventListener('click', (e) => { e.preventDefault(); openDiscuss(); });
+            }
         });
 
         // Scroll-to-top button: show when user scrolls down (footer in view), click to go up
