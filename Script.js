@@ -2625,6 +2625,7 @@
           this.hide(this.query[this.index - 1]);
       },
     };
+  window.__contactSubmitSuccess = function () { td.next_query(); };
   function tp() {}
   tp.prototype = {
     on: function (t, e, i) {

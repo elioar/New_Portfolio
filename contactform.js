@@ -1,8 +1,18 @@
 document.getElementById('contact').addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    const formData = new FormData(this);
-    
+
+    var form = this;
+    var submitBtn = document.getElementById('js-submit');
+    var errEl = document.querySelector('.c-error');
+    var originalBtnText = submitBtn ? submitBtn.textContent : '';
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+    }
+
+    var formData = new FormData(form);
+
     fetch("https://formspree.io/f/xdkoebln", {
         method: "POST",
         body: formData,
@@ -10,15 +20,24 @@ document.getElementById('contact').addEventListener('submit', function(e) {
             'Accept': 'application/json'
         }
     })
-    .then(response => {
+    .then(function(response) {
         if (response.ok) {
-            td.next_query();
+            if (typeof window.__contactSubmitSuccess === 'function') {
+                window.__contactSubmitSuccess();
+            }
+            if (errEl) errEl.classList.remove('--visible');
         } else {
             throw new Error('Submission failed');
         }
     })
-    .catch(error => {
+    .catch(function(error) {
         console.error('Error:', error);
-        document.querySelector('.c-error').style.display = 'block';
+        if (errEl) errEl.classList.add('--visible');
+    })
+    .finally(function() {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText || 'Send Message';
+        }
     });
 }); 
