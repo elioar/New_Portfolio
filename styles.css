@@ -5033,3 +5033,37 @@ html.theme-light .show-more-btn:hover {
   top: 50%;
   transform: translateY(-50%);
 }
+
+/* Scroll-to-top button */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #5d3fd3;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(93, 63, 211, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background 0.2s ease;
+}
+.scroll-to-top-btn:hover {
+  background: #4a2fc2;
+}
+.scroll-to-top-btn.scroll-to-top--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.scroll-to-top-btn svg {
+  flex-shrink: 0;
+}

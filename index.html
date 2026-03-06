@@ -1145,7 +1145,53 @@
                 window.dispatchEvent(new Event('resize'));
             }, 1200);
         });
+
+        // Scroll-to-top button: show when user scrolls down (footer in view), click to go up
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('scroll-to-top');
+            const footer = document.querySelector('footer[data-scroll-section]');
+            if (!btn || !footer) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    if (e.isIntersecting) btn.classList.add('scroll-to-top--visible');
+                    else btn.classList.remove('scroll-to-top--visible');
+                });
+            }, { rootMargin: '-20% 0px', threshold: 0 });
+
+            observer.observe(footer);
+
+            // Hide when back near top (hero/title in view)
+            const hero = document.querySelector('.c-title.o-section');
+            if (hero) {
+                const heroObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) btn.classList.remove('scroll-to-top--visible');
+                    });
+                }, { threshold: 0.1 });
+                heroObserver.observe(hero);
+            }
+
+            btn.addEventListener('click', () => {
+                btn.classList.remove('scroll-to-top--visible');
+                if (typeof window.__scrollToTop === 'function') {
+                    window.__scrollToTop();
+                } else {
+                    const scrollEl = document.getElementById('js-scroll');
+                    const main = document.querySelector('main[data-scroll-container]');
+                    if (scrollEl && typeof scrollEl.scrollTo === 'function') scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+                    else if (main && typeof main.scrollTo === 'function') main.scrollTo({ top: 0, behavior: 'smooth' });
+                    else window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                window.dispatchEvent(new Event('resize'));
+            });
+        });
     </script>
+    <button type="button" id="scroll-to-top" class="scroll-to-top-btn" aria-label="Scroll to top" title="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"/>
+        </svg>
+    </button>
 </body>
 
 </html>

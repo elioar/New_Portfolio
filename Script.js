@@ -2539,8 +2539,9 @@
       el: document.querySelector("#js-scroll"),
       smooth: !0,
       lerp: 0.06,
-    }),
-    td = {
+    });
+  window.__scrollToTop = function () { tf.scrollTo(0, 0, 0); };
+  let td = {
       index: 0,
       first: !0,
       slider: document.querySelector("#js-slider"),
