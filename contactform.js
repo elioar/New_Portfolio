@@ -11,6 +11,11 @@ document.getElementById('contact').addEventListener('submit', function(e) {
         submitBtn.textContent = 'Sending...';
     }
 
+    // Advance to Thank You immediately
+    if (typeof window.__contactSubmitSuccess === 'function') {
+        window.__contactSubmitSuccess();
+    }
+
     var formData = new FormData(form);
 
     fetch("https://formspree.io/f/xdkoebln", {
@@ -22,9 +27,6 @@ document.getElementById('contact').addEventListener('submit', function(e) {
     })
     .then(function(response) {
         if (response.ok) {
-            if (typeof window.__contactSubmitSuccess === 'function') {
-                window.__contactSubmitSuccess();
-            }
             if (errEl) errEl.classList.remove('--visible');
         } else {
             throw new Error('Submission failed');
@@ -32,7 +34,6 @@ document.getElementById('contact').addEventListener('submit', function(e) {
     })
     .catch(function(error) {
         console.error('Error:', error);
-        if (errEl) errEl.classList.add('--visible');
     })
     .finally(function() {
         if (submitBtn) {
@@ -40,4 +41,4 @@ document.getElementById('contact').addEventListener('submit', function(e) {
             submitBtn.textContent = originalBtnText || 'Send Message';
         }
     });
-}); 
+});

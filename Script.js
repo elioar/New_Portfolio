@@ -2553,6 +2553,7 @@
       count_div: document.querySelector("#js-count"),
       send: document.querySelector("#js-submit"),
       skip: document.querySelector("#js-skip"),
+      additionalNext: document.querySelector("#js-additional-next"),
       show: function (t) {
         t.classList.add("--visible"), t.classList.remove("--hidden");
       },
@@ -2578,8 +2579,8 @@
             ? (this.send.style = "visibility: visible; opacity: 1")
             : (this.send.style = ""),
           6 == this.index
-            ? (this.skip.style = "visibility: visible; opacity: 1")
-            : (this.skip.style = ""),
+            ? (this.additionalNext.style = "visibility: visible; opacity: 1")
+            : (this.additionalNext.style = ""),
           this.index >= 1 &&
             this.index <= 7 &&
             (this.prog.style.transform = `scaleX(${this.index / 7})`),
@@ -2625,7 +2626,11 @@
           this.hide(this.query[this.index - 1]);
       },
     };
-  window.__contactSubmitSuccess = function () { td.next_query(); };
+  window.__contactSubmitSuccess = function () {
+    td.next_query();
+    var thankYouSlide = td.query[td.query.length - 1];
+    if (thankYouSlide) setTimeout(function () { td.show(thankYouSlide); }, 950);
+  };
   function openAndAdvance() {
     td.open();
     if (td.first) {
@@ -10291,7 +10296,6 @@
       td.close();
     }),
     td.send.addEventListener("click", function (t) {
-      td.next_query();
     });
   let a$ = document.querySelectorAll("#js-slider > div label"),
     aD = document.querySelectorAll("#js-slider .s-text input");
@@ -10321,6 +10325,13 @@
       }
     });
   });
+  var additionalNextBtn = document.querySelector("#js-additional-next");
+  if (additionalNextBtn) {
+    additionalNextBtn.addEventListener("click", function () {
+      document.querySelector(".c-error").classList.remove("--visible");
+      td.next_query();
+    });
+  }
   function advanceWelcome() {
     if (td.query[0] && td.query[0].classList.contains("--visible")) td.next_query();
   }
