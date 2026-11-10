@@ -10139,20 +10139,23 @@
         a = document.querySelector("#js-cursor"),
         l = document.querySelector("#js-work-bg"),
         u = document.querySelectorAll("#js-cursor > div");
+      // Always show Elio's local time (Athens), not the visitor's
       function c() {
-        var e;
-        let n = new Date();
-        return (
-          n.getHours() + ":" + ((e = n.getMinutes()) < 10 && (e = "0" + e), e)
-        );
+        return new Date().toLocaleTimeString("en-GB", {
+          timeZone: "Europe/Athens",
+          hour: "numeric",
+          minute: "2-digit",
+        });
       }
       function g() {
-        let t = -new Date().getTimezoneOffset();
-        let e = t >= 0 ? "+" : "-";
-        let i = Math.floor(Math.abs(t) / 60);
-        let r = Math.abs(t) % 60;
-        let n = (r < 10 ? "0" : "") + r;
-        return `UTC (${e}${i}:${n})⌛`;
+        let z = new Intl.DateTimeFormat("en-US", {
+          timeZone: "Europe/Athens",
+          timeZoneName: "shortOffset",
+        })
+          .formatToParts(new Date())
+          .find((p) => p.type === "timeZoneName").value;
+        let m = z.match(/([+-])(\d+)(?::(\d+))?/) || ["", "+", "0", "00"];
+        return `UTC (${m[1]}${m[2]}:${m[3] || "00"})⌛`;
       }
       function h() {
         td.open(),
@@ -10444,44 +10447,3 @@ const next = () => {
     (counter = (counter + 1) % phrases.length);
 };
 next();
-// Theme toggle: light/dark
-(function () {
-  const root = document.documentElement;
-  const toggleButton = document.getElementById("theme_toggle");
-  if (!toggleButton) return;
-  const STORAGE_KEY = "theme";
-  const THEME_LIGHT = "light";
-  const THEME_DARK = "dark";
-
-  function applyTheme(theme) {
-    const isLight = theme === THEME_LIGHT;
-    root.classList.toggle("theme-light", isLight);
-    toggleButton.setAttribute("aria-pressed", String(isLight));
-    toggleButton.title = isLight ? "Switch to dark" : "Switch to light";
-  }
-
-  function systemPrefersLight() {
-    return (
-      typeof window.matchMedia === "function" &&
-      window.matchMedia("(prefers-color-scheme: light)").matches
-    );
-  }
-
-  const saved = localStorage.getItem(STORAGE_KEY);
-  const hasUserPref = saved === THEME_LIGHT || saved === THEME_DARK;
-  const initial = hasUserPref ? saved : systemPrefersLight() ? THEME_LIGHT : THEME_DARK;
-  applyTheme(initial);
-
-  toggleButton.addEventListener("click", () => {
-    const nextTheme = root.classList.contains("theme-light") ? THEME_DARK : THEME_LIGHT;
-    localStorage.setItem(STORAGE_KEY, nextTheme);
-    applyTheme(nextTheme);
-  });
-
-  if (!hasUserPref && typeof window.matchMedia === "function") {
-    const mq = window.matchMedia("(prefers-color-scheme: light)");
-    const onChange = (e) => applyTheme(e.matches ? THEME_LIGHT : THEME_DARK);
-    if (typeof mq.addEventListener === "function") mq.addEventListener("change", onChange);
-    else if (typeof mq.addListener === "function") mq.addListener(onChange);
-  }
-})();

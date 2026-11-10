@@ -18,19 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 behavior: 'smooth'
             });
             
-            // Optional: Close mobile menu if open
-            const mobileMenu = document.getElementById('fs_menu');
-            const menuToggle = document.getElementById('menu_toggle');
-            
-            if (mobileMenu && mobileMenu.classList.contains('--open')) {
-                mobileMenu.classList.remove('--open');
-                mobileMenu.setAttribute('aria-hidden', 'true');
-                
-                if (menuToggle) {
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                    menuToggle.setAttribute('aria-label', 'Open menu');
-                }
-            }
+            // Close mobile menu if open
+            if (typeof window.__closeMenu === 'function') window.__closeMenu();
             
             // Update URL without page reload (optional)
             if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {

@@ -39,6 +39,7 @@
 
     <!-- Theme -->
     <meta name="theme-color" content="#5d3fd3">
+    <script>try { if (localStorage.getItem('theme') === 'light') document.documentElement.classList.add('theme-light'); } catch (e) {}</script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -50,11 +51,11 @@
 
 
 <body>
-    <nav>
+    <nav class="c-nav">
         <a href="/" class="logo-container" id="logo-home-link" aria-label="Go to homepage" title="Return to homepage">
             <div class="container">
                 <div>
-                    <img src="icon/eliodevLogo.svg" height="12" alt="Elio Dev Logo">
+                    <img src="icon/eliodevLogo.svg" height="16" alt="Elio Dev Logo">
                 </div>
                 <div class="text">ELIODEV</div>
             </div>
@@ -62,11 +63,12 @@
         <div class="nav-links o-desktop">
             <a href="#js-work">Works</a>
             <a href="https://github.com/elioar" target="_blank">Github</a>
-            <a href=javascript:void(0) id=contact_btn data-router-disabled>Message</a>
+            <a href="https://www.linkedin.com/in/elio-dev" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             <button id="theme_toggle" class="nav-theme-btn" aria-label="Toggle theme" aria-pressed="false" title="Switch theme">
                 <svg class="theme-icon theme-icon--light" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                 <svg class="theme-icon theme-icon--dark" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
+            <a href=javascript:void(0) id=contact_btn class="c-nav__cta" data-router-disabled>Message <span aria-hidden="true">↗</span></a>
         </div>
         <button id="mobile_header_theme_toggle" class="nav-theme-btn o-mobile" aria-label="Toggle theme" aria-pressed="false" title="Switch theme">
             <svg class="theme-icon theme-icon--light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -80,41 +82,32 @@
     </nav>
     <div id="fs_menu" class="c-fs-menu" aria-hidden="true">
         <div class="c-fs-menu__inner">
-            <div class="c-fs-menu__header">
-                <div class="container">
-                    <div>
-                        <img src="icon/eliodevLogo.svg" height="14" alt="Logo">
-                    </div>
-                    <div class="text">ELIODEV</div>
-                </div>
-                <button id="fs_menu_close" class="c-menu-close" aria-label="Close menu">
-                    <img src="icon/close.e11d51cb.svg" alt="Close">
-                </button>
-            </div>
             <div class="c-fs-menu__content">
                 <ul class="c-fs-menu__links">
-                    <li style="--order:1"><a href="#js-work" data-menu-close>Works</a></li>
-                    <li style="--order:2"><a href="mailto:elio.developer02@gmail.com" data-menu-close>Contact</a></li>
+                    <li style="--order:1"><a href="#js-work" data-menu-close><span class="c-fs-menu__num">01</span><span>Works</span><svg class="c-fs-menu__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a></li>
+                    <li style="--order:2"><a href="javascript:void(0)" id="menu_contact_link" data-router-disabled><span class="c-fs-menu__num">02</span><span>Contact</span><svg class="c-fs-menu__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a></li>
                 </ul>
-                <div class="c-fs-menu__socials">
-                    <p class="o-title-small">Socials</p>
-                    <ul>
-                        <li style="--order:1"><a data-router-disabled href="https://github.com/elioar" target="_blank">GitHub</a></li>
-                        <li style="--order:2"><a data-router-disabled href="https://www.instagram.com/elio.dev" target="_blank">Instagram</a></li>
-                    </ul>
-                </div>
-                <div class="c-fs-menu__theme-toggle">
-                    <p class="o-title-small">Theme</p>
-                    <button id="mobile_theme_toggle" class="menu-theme-btn" aria-label="Toggle theme" aria-pressed="false" title="Switch theme">
-                        <svg class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                        <svg class="theme-icon theme-icon--dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                        <span class="toggle-label">Dark / Light Mode</span>
-                    </button>
-                </div>
-                <div class="c-fs-menu__cta">
-                    <a href="javascript:void(0)" id="menu_contact" class="button button--bestia">
-                        <div class="button__bg"></div><span>Discuss Project</span>
-                    </a>
+                <div class="c-fs-menu__bottom">
+                    <div class="c-fs-menu__socials">
+                        <p class="o-title-small">Socials</p>
+                        <ul>
+                            <li style="--order:1"><a data-router-disabled href="https://github.com/elioar" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></li>
+                            <li style="--order:2"><a data-router-disabled href="https://www.linkedin.com/in/elio-dev" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></li>
+                            <li style="--order:3"><a data-router-disabled href="https://www.instagram.com/elio.dev" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="c-fs-menu__theme-toggle">
+                        <p class="o-title-small">Theme</p>
+                        <button id="mobile_theme_toggle" class="c-theme-switch" aria-label="Toggle theme" aria-pressed="false" title="Switch theme">
+                            <span class="c-theme-switch__opt --dark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Dark</span>
+                            <span class="c-theme-switch__opt --light"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Light</span>
+                        </button>
+                    </div>
+                    <div class="c-fs-menu__cta">
+                        <a href="javascript:void(0)" id="menu_contact" class="button button--bestia">
+                            <div class="button__bg"></div><span>Discuss Project ↗</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,89 +129,35 @@
   <div id="js-scroll" data-router-wrapper>
     <div data-router-view="home" data-transition-in="home">
                 <div class=c-cursor id=js-cursor style=transform:translate(100%,100%)>
-                    <div>
+                    <div data-preview=mycomments>
+                        <p>MyComments AI</p>
+                        <div data-animate=true class="s-gif"> <img src=img/projects/my-comments.webp loading=lazy alt="MyComments AI"> </div>
+                    </div>
+                    <div data-preview=vibepeek>
+                        <p>Vibepeek</p>
+                        <div data-animate=true class="s-gif"> <img src=img/projects/vibepeek.webp loading=lazy alt="Vibepeek"> </div>
+                    </div>
+                    <div data-preview=jobfinder>
+                        <p>JobFinder</p>
+                        <div data-animate=true class="s-gif"> <img src=img/projects/JobFinder.webp loading=lazy alt="JobFinder"> </div>
+                    </div>
+                    <div data-preview=keepmynote>
                         <p>Keep My Note</p>
-                        <div data-animate=true> <img src=img/slider/keep1.webp loading=lazy alt="Keep My Note"> <img
-                                src=img/slider/keep2.webp loading=lazy alt="Keep My Note"> <img src=img/slider/keep3.webp
-                                loading=lazy alt="Keep My Note"> <img src=img/slider/keep4.webp loading=lazy
-                                alt="Keep My Note"> <img src=img/slider/keep5.webp loading=lazy alt="Keep My Note"> </div>
+                        <div data-animate=true class="s-gif"> <img src=img/projects/keepmynote.webp loading=lazy alt="Keep My Note"> </div>
                     </div>
-                    <div>
-                        <p>AI SAAS</p>
-                        <div data-animate=true> <img src=img/slider/eixai1.webp loading=lazy alt=quaive> <img
-                                src=img/slider/eixai2.webp loading=lazy alt=quaive> <img src=img/slider/eixai3.webp
-                                loading=lazy alt=quaive> <img src=img/slider/eixai4.webp loading=lazy alt=quaive>
-                            <img src=img/slider/eixai5.webp loading=lazy alt=quaive>
-                        </div>
-                    </div>
-                    <div>
-                        <p>Barukoni.com</p>
-                        <div data-animate=true> <img src=img/slider/barukoni1.webp loading=lazy alt=Aeizei> <img
-                                src=img/slider/barukoni2.webp loading=lazy alt=Aeizei> <img src=img/slider/barukoni3.webp
-                                loading=lazy alt=Aeizei> <img src=img/slider/barukoni4.webp loading=lazy alt=Aeizei>
-                            <img src=img/slider/barukoni5.webp loading=lazy alt=Aeizei>
-                        </div>
-                    </div>
-                    <div>
-                        <p>JobFinder APP</p>
-                        <div data-animate=true> <img src=img/slider/mamouni1.webp loading=lazy alt=mamouni> <img
-                            src=img/slider/mamouni2.webp loading=lazy alt=mamouni> <img src=img/slider/mamouni3.webp
-                            loading=lazy alt=mamouni> <img src=img/slider/mamouni4.webp loading=lazy alt=mamouni>
-                        <img src=img/slider/mamouni5.webp loading=lazy alt=mamouni>
-                    </div>
-                    </div>
-                    <div>
+                    <div data-preview=mamouni>
                         <p>Mamouni</p>
-                        <div data-animate=true> <img src=img/slider/mamouni1.webp loading=lazy alt=mamouni> <img
-                                src=img/slider/mamouni2.webp loading=lazy alt=mamouni> <img src=img/slider/mamouni3.webp
-                                loading=lazy alt=mamouni> <img src=img/slider/mamouni4.webp loading=lazy alt=mamouni>
-                            <img src=img/slider/mamouni5.webp loading=lazy alt=mamouni>
-                        </div>
+                        <div data-animate=true> <img src=img/slider/mamouni1.webp loading=lazy alt="Mamouni"> <img src=img/slider/mamouni2.webp loading=lazy alt="Mamouni"> <img src=img/slider/mamouni3.webp loading=lazy alt="Mamouni"> <img src=img/slider/mamouni4.webp loading=lazy alt="Mamouni"> <img src=img/slider/mamouni5.webp loading=lazy alt="Mamouni"> </div>
                     </div>
-                    <div>
-                        <p>JobFinder APP</p>
-                        <div data-animate=true> <img src=img/slider/dis1.a68a59af.png loading=lazy alt=display> <img
-                                src=img/slider/dis2.ab5a2a48.png loading=lazy alt=display> <img src=img/slider/dis3.959a693c.png
-                                loading=lazy alt=display> <img src=img/slider/dis4.652c25b1.png loading=lazy alt=display>
-                            <img src=img/slider/dis5.84416503.png loading=lazy alt=display>
-                        </div>
-                    </div>
-                    <div>
-                        <p>Keep My Note</p>
-                        <div data-animate=true> <img src=img/slider/keep1.webp loading=lazy alt="Keep My Note"> <img
-                                src=img/slider/keep2.webp loading=lazy alt="Keep My Note"> <img src=img/slider/keep3.webp
-                                loading=lazy alt="Keep My Note"> <img src=img/slider/keep4.webp loading=lazy
-                                alt="Keep My Note"> <img src=img/slider/keep5.webp loading=lazy alt="Keep My Note"> </div>
-                    </div>
-                    <div>
-                        <p>Barukoni.com</p>
-                        <div data-animate=true> <img src=img/slider/barukoni1.webp loading=lazy alt=Aeizei> <img
-                                src=img/slider/barukoni2.webp loading=lazy alt=Aeizei> <img src=img/slider/barukoni3.webp
-                                loading=lazy alt=Aeizei> <img src=img/slider/barukoni4.webp loading=lazy alt=Aeizei>
-                            <img src=img/slider/barukoni5.webp loading=lazy alt=Aeizei>
-                        </div>
-                    </div>
-                    <div>
-                        <p>EiXai</p>
-                        <div data-animate=true> <img src=img/slider/eixai1.webp loading=lazy alt=quaive> <img
-                                src=img/slider/eixai2.webp loading=lazy alt=quaive> <img src=img/slider/eixai3.webp
-                                loading=lazy alt=quaive> <img src=img/slider/eixai4.webp loading=lazy alt=quaive>
-                            <img src=img/slider/eixai5.webp loading=lazy alt=quaive>
-                        </div>
-                    </div>
-                    <div>
-                        <p>Mamouni</p>
-                        <div data-animate=true> <img src=img/slider/mamouni1.webp loading=lazy alt=mamouni> <img
-                                src=img/slider/mamouni2.webp loading=lazy alt=mamouni> <img src=img/slider/mamouni3.webp
-                                loading=lazy alt=mamouni> <img src=img/slider/mamouni4.webp loading=lazy alt=mamouni>
-                            <img src=img/slider/mamouni5.webp loading=lazy alt=mamouni>
-                        </div>
-                    </div>
-                    <div>
+                    <div data-preview=spiti>
                         <p>Spiti</p>
                         <div data-animate=true class="s-gif">
-                            <video src="img/projects/spiti-premium-real-estate.mp4" muted loop playsinline preload="auto" aria-label="Spiti - Premium Real Estate"></video>
+                            <video src="img/projects/spiti-premium-real-estate.mp4" muted loop playsinline preload="none" aria-label="Spiti - Premium Real Estate"></video>
                         </div>
+                    </div>
+                    <div data-preview=eixai>
+                        <p>EiXai</p>
+                        <div data-animate=true> <img src=img/slider/eixai1.webp loading=lazy alt="EiXai"> <img src=img/slider/eixai2.webp loading=lazy alt="EiXai"> <img src=img/slider/eixai3.webp loading=lazy alt="EiXai"> <img src=img/slider/eixai4.webp loading=lazy alt="EiXai"> <img src=img/slider/eixai5.webp loading=lazy alt="EiXai"> </div>
                     </div>
                 </div>
                 <div data-scroll-section class="c-title o-section">
@@ -230,7 +169,7 @@
                         <div class="c-t-a-info c-t-a-info--desktop">
                             <p class=o-title-small> <span class=line-parent><span class=line-child>Currently
                                         Available <span class=o-accent>FOR</span></span></span> <span
-                                    class=line-parent><span class=line-child>Freelance Worldwid🌍</span></span> </p>
+                                    class=line-parent><span class=line-child>Freelance Worldwide 🌍</span></span> </p>
                             <p class=o-title-small> <span class=line-parent><span class=line-child>My local Time
                                         <span class=js-time>TIME</span></span></span> <span class=line-parent><span
                                         class="line-child js-utc">UTC (+2:00)⌛</span></span> </p>
@@ -353,7 +292,7 @@
                 <div data-scroll-section class="c-about o-section">
                     <div> <span class="o-mobile o-title-small">About Myself</span>
                         <p class="js-reveal js-split" data-scroll> Elio here, a web <span
-                                class="o-accent u-non">developer</span> bringing, functional, and visually stunning
+                                class="o-accent u-non">developer</span> bringing fast, functional, and visually stunning
                             interfaces to life.</p>
                         <div class="o-mobile c-about-cta">
                             <span class="c-about-tag c-about-tag--status">
@@ -390,7 +329,7 @@
                             <h2 class="js-reveal o-title"> <span class=line-parent><span class=line-child>Recent
                                     </span></span> <span class=line-parent><span class=line-child>Wo<span
                                             class=o-accent>r</span>ks</span></span> </h2>
-                            <p class=o-desktop>(05)</p>
+                            <p class=o-desktop>(07)</p>
                         </div> <svg class=o-ui-arrow width=64 height=64 viewbox="0 0 64 64" fill=none
                             xmlns=http://www.w3.org/2000/svg>
                             <path d="M3.10162 3.10156L62.9999 62.9999" stroke-linecap=round stroke-linejoin=round>
@@ -496,10 +435,10 @@
                             <div class="interactive-content">
                                 <div class="interactive-stats">
                                     <div class="stat">
-                                        Performance <span class="stat-value">98%</span>
+                                        Type: <span class="stat-value">Mobile App</span>
                                     </div>
                                     <div class="stat">
-                                        UI Score <span class="stat-value">95%</span>
+                                        Year: <span class="stat-value">2023</span>
                                     </div>
                                 </div>
                                 <h3 class="interactive-title">JobFinder</h3>
@@ -536,18 +475,18 @@
                             <div class="interactive-content">
                                 <div class="interactive-stats">
                                     <div class="stat">
-                                        Performance <span class="stat-value">96%</span>
+                                        Type: <span class="stat-value">Mobile App</span>
                                     </div>
                                     <div class="stat">
-                                        UI Score <span class="stat-value">92%</span>
+                                        Year: <span class="stat-value">2024</span>
                                     </div>
                                 </div>
                                 <h3 class="interactive-title">Keep My Note</h3>
                                 <p class="interactive-description">A sleek note-taking application with real-time sync and intelligent organization features.</p>
                                 <div class="interactive-tags">
                                     <div class="tech-item">
-                                        <img src="icon/3d-react.webp" alt="React" class="tech-icon">
-                                        <span>React</span>
+                                        <img src="icon/3d-react-native.webp" alt="React Native" class="tech-icon">
+                                        <span>React Native</span>
                                     </div>
                                     <div class="tech-item">
                                         <img src="icon/firebase.svg" alt="Firebase" class="tech-icon">
@@ -644,42 +583,6 @@
                                             <span>GitHub</span>
                                         </a>
                                         <a href="https://spiti-mou.vercel.app" target="_blank" class="action-btn view-btn">
-                                            <span>View Project</span>
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                                <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Barukoni -->
-                            <div class="interactive-card" data-cursor="barukoni">
-                                <div class="interactive-glow"></div>
-                                <img src="img/projects/barukoni-mockup.webp" alt="Barukoni" class="interactive-image">
-                                <div class="interactive-content">
-                                    <div class="interactive-stats">
-                                        <div class="stat">
-                                            Type: <span class="stat-value">Website</span>
-                                        </div>
-                                        <div class="stat">
-                                            Year: <span class="stat-value">2024</span>
-                                        </div>
-                                    </div>
-                                    <h3 class="interactive-title">Barukoni</h3>
-                                    <p class="interactive-description">An elegant e-commerce platform with advanced filtering and real-time inventory tracking.</p>
-                                    <div class="interactive-tags">
-                                        <div class="tech-item">
-                                            <img src="icon/3d-wordpress.webp" alt="WordPress" class="tech-icon">
-                                            <span>WordPress</span>
-                                        </div>
-                                        <div class="tech-item">
-                                            <img src="icon/elementor.svg" alt="Elementor" class="tech-icon">
-                                            <span>Elementor</span>
-                                        </div>
-                                    </div>
-                                    <div class="interactive-actions">
-                                        <a href="https://barukoni.com" target="_blank" class="action-btn view-btn">
                                             <span>View Project</span>
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                                                 <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -891,7 +794,13 @@
                                         <p>@elioar</p>
                                     </div> <img src="/icon/github-mark-white.png" alt=Github>
                                 </a> </div>
-                            <div style=--order:2> <a href="https://www.instagram.com/elio.dev" target="_blank">
+                            <div style=--order:2> <a href="https://www.linkedin.com/in/elio-dev" target="_blank" rel="noopener noreferrer">
+                                    <div>
+                                        <p>LinkedIn</p>
+                                        <p>@elio-dev</p>
+                                    </div> <img src="/icon/linkedin.svg" alt=LinkedIn>
+                                </a> </div>
+                            <div style=--order:3> <a href="https://www.instagram.com/elio.dev" target="_blank">
                                 <div>
                                     <p>Instagram</p>
                                     <p>@elio.dev</p>
@@ -1072,10 +981,7 @@
 
             function handleCardMouseEnter(e) {
                 const cardType = e.currentTarget.getAttribute('data-cursor');
-                const cursorDiv = cursorDivs.find(div => {
-                    const p = div.querySelector('p');
-                    return p && p.textContent.toLowerCase().includes(cardType);
-                });
+                const cursorDiv = cursorDivs.find(div => div.dataset.preview === cardType);
 
                 if (cursorDiv) {
                     cursorDivs.forEach(div => {

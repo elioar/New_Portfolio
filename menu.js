@@ -3,27 +3,38 @@ const themeToggle = document.getElementById('theme_toggle');
 const mobileThemeToggle = document.getElementById('mobile_header_theme_toggle');
 const menuThemeToggle = document.getElementById('mobile_theme_toggle');
 const html = document.documentElement;
-const storedTheme = localStorage.getItem('theme') || 'light';
+const themeButtons = [themeToggle, mobileThemeToggle, menuThemeToggle].filter(Boolean);
 
-html.classList.toggle('theme-light', storedTheme === 'light');
-
-function toggleTheme() {
-    const isLight = html.classList.toggle('theme-light');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+// Dark is the default theme; light only when the visitor picked it
+function applyTheme(isLight) {
+    html.classList.toggle('theme-light', isLight);
+    themeButtons.forEach((btn) => {
+        btn.setAttribute('aria-pressed', String(isLight));
+        btn.title = isLight ? 'Switch to dark' : 'Switch to light';
+    });
 }
 
-if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
-if (menuThemeToggle) menuThemeToggle.addEventListener('click', toggleTheme);
+applyTheme(localStorage.getItem('theme') === 'light');
+
+function toggleTheme() {
+    const isLight = !html.classList.contains('theme-light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    applyTheme(isLight);
+}
+
+themeButtons.forEach((btn) => btn.addEventListener('click', toggleTheme));
 
 // Mobile Menu
 const menuToggle = document.getElementById('menu_toggle');
 const menuClose = document.getElementById('fs_menu_close');
 const fsMenu = document.getElementById('fs_menu');
 const menuLinks = document.querySelectorAll('[data-menu-close]');
+const navBar = document.querySelector('nav.c-nav');
 
 function toggleMenu(show) {
     menuToggle.setAttribute('aria-expanded', show);
+    menuToggle.setAttribute('aria-label', show ? 'Close menu' : 'Open menu');
+    if (navBar) navBar.classList.toggle('--menu-open', show);
     fsMenu.setAttribute('aria-hidden', !show);
     fsMenu.classList.toggle('--open', show);
     if (show) {
@@ -38,7 +49,8 @@ menuToggle.addEventListener('click', () => {
     toggleMenu(!isExpanded);
 });
 
-menuClose.addEventListener('click', () => toggleMenu(false));
+if (menuClose) menuClose.addEventListener('click', () => toggleMenu(false));
+window.__closeMenu = () => toggleMenu(false);
 
 menuLinks.forEach(link => {
     link.addEventListener('click', () => toggleMenu(false));
@@ -51,8 +63,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // "Discuss Project" button inside menu → close menu and open contact form
-const menuContact = document.getElementById('menu_contact');
-if (menuContact) {
+document.querySelectorAll('#menu_contact, #menu_contact_link').forEach((menuContact) => {
     menuContact.addEventListener('click', () => {
         toggleMenu(false);
         if (typeof window.__openContactMaybeWithCat === 'function') {
@@ -64,4 +75,4 @@ if (menuContact) {
             document.querySelector('#js-contact').classList.add('--visible');
         }
     });
-}
+});
