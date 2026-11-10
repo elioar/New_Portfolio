@@ -2541,6 +2541,11 @@
       lerp: 0.06,
     });
   window.__scrollToTop = function () { tf.scrollTo(0, 0, 0); };
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest("#hero-view-work")) return;
+    e.preventDefault();
+    tf.scrollTo(document.querySelector("#js-work"));
+  });
   // Scroll lock shared by the mobile menu and the contact form.
   // Desktop scrolls through Locomotive (tf), mobile through the window,
   // so stop both; each overlay locks under its own name.
