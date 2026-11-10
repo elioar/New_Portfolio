@@ -37,10 +37,10 @@ function toggleMenu(show) {
     if (navBar) navBar.classList.toggle('--menu-open', show);
     fsMenu.setAttribute('aria-hidden', !show);
     fsMenu.classList.toggle('--open', show);
-    if (show) {
-        document.body.style.overflow = 'hidden';
+    if (typeof window.__lockScroll === 'function') {
+        window.__lockScroll('menu', show);
     } else {
-        document.body.style.overflow = '';
+        document.body.style.overflow = show ? 'hidden' : '';
     }
 }
 

@@ -2541,6 +2541,31 @@
       lerp: 0.06,
     });
   window.__scrollToTop = function () { tf.scrollTo(0, 0, 0); };
+  // Scroll lock shared by the mobile menu and the contact form.
+  // Desktop scrolls through Locomotive (tf), mobile through the window,
+  // so stop both; each overlay locks under its own name.
+  var __scrollLocks = new Set(), __lockedY = 0;
+  window.__lockScroll = function (name, on) {
+    var was = __scrollLocks.size > 0;
+    on ? __scrollLocks.add(name) : __scrollLocks.delete(name);
+    var now = __scrollLocks.size > 0;
+    if (now === was) return;
+    var b = document.body;
+    if (now) {
+      __lockedY = window.scrollY;
+      tf.stop();
+      document.documentElement.classList.add("is-scroll-locked");
+      b.style.position = "fixed";
+      b.style.top = -__lockedY + "px";
+      b.style.left = "0";
+      b.style.right = "0";
+    } else {
+      b.style.position = b.style.top = b.style.left = b.style.right = "";
+      document.documentElement.classList.remove("is-scroll-locked");
+      window.scrollTo(0, __lockedY);
+      tf.start();
+    }
+  };
   window.__openContact = function () { td.open(); };
   let td = {
       index: 0,
@@ -2601,6 +2626,7 @@
           this.next_query());
       },
       open: function () {
+        window.__lockScroll("contact", !0);
         document.querySelector("#js-overlay").classList.add("--visible"),
           document.querySelector("#js-contact").classList.add("--visible"),
           setTimeout(() => {
@@ -2622,6 +2648,7 @@
         }, 600),
           setTimeout(() => {
             document.querySelector("#js-overlay").classList.remove("--visible");
+            window.__lockScroll("contact", !1);
           }, 1200),
           this.hide(this.query[this.index - 1]);
       },
@@ -2652,6 +2679,7 @@
     p.src = "img/misc/cat-meme.webp";
     div.style.display = "";
     if (roll === 1) {
+      window.__lockScroll("contact", !0);
       d.style.display = "block";
       var openAfterCat = function () {
         div.style.display = "none";

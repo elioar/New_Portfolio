@@ -5526,3 +5526,10 @@ body:has(.c-cate[style*="display: block"]) nav.c-nav {
 @media (max-width: 768px) {
   .c-fs-menu__links { margin-top: 8px; }
 }
+
+/* Scroll lock (menu / contact form open) */
+html.is-scroll-locked,
+html.is-scroll-locked body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
